@@ -28,7 +28,7 @@ public class Board implements Cloneable{
 			}
 		}
 	}
-	public Board newClone(){
+	public Board clone(){
 		return new Board(this);
 	}
 	public String toString(){//test
@@ -63,7 +63,7 @@ public class Board implements Cloneable{
 		this.getCell(x,y).setCellColor(color);
 	}
 	public boolean isLegal(int posX,int posY,Colors color){
-		Board boardTemp=this.newClone();
+		Board boardTemp=this.clone();
 		int compteur=0;
 		int compteuA=0;
 		Colors ennemy=null;	
