@@ -39,8 +39,9 @@ public class Main {
 			if(!playSkip)
 			{
 				board.setCell(moveX, moveY, colorPlaying);
-				board.getCell(moveX,moveY).killCell(board);
+				//board.getCell(moveX,moveY).killCell(board);
 				colorPlaying=colorPlaying.oppositeColor();
+				legalMove = false;
 				moveX=0;
 				moveY=0;
 				pane.repaint();
