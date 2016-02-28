@@ -31,8 +31,8 @@ public class Main {
 				///choix du coup et verif de la légalité
 				while(!mouseListener.isEventClicked()&&!playSkip){}//Boucle pour attendre un clic souris
 				if(!playSkip){
-				moveX=mouseListener.getBoardX();
-				moveY=mouseListener.getBoardY();
+				moveX=mouseListener.getBoardX()/64;
+				moveY=mouseListener.getBoardY()/64;
 				mouseListener.resetEvent();
 				legalMove=board.isLegal(moveX,moveY,colorPlaying);}
 			}
