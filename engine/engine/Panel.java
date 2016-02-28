@@ -10,7 +10,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Panel extends JPanel{
 	
-	public void paintCompoent(Graphics g){
+	public void paintComponent(Graphics g){
 		try{
 		g.drawImage(ImageIO.read(new File("background.jpg")),0,0,this.getWidth(),this.getHeight(),this);}
 		catch(IOException e){e.printStackTrace();}

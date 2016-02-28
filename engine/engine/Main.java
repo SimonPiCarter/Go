@@ -22,7 +22,6 @@ public class Main {
 		{
 		Colors.WHITE.img=ImageIO.read(new File("white_token.png"));
 		Colors.BLACK.img=ImageIO.read(new File("black_token.png"));
-		//pane.setForeground(ImageIO.read(new File("board_background.png")));
 		}catch(IOException e)
 		{e.printStackTrace();}
 		
