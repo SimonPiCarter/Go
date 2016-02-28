@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		Board board =new Board(9);
 		Window window =new Window(576,576,"Go!");
-		Panel pane =new Panel();
+		Panel pane =new Panel(board);
 		window.setContentPane(pane);
 		Colors colorPlaying =Colors.WHITE;
 		int moveX=0, moveY=0;
@@ -23,7 +23,6 @@ public class Main {
 		Colors.BLACK.img=ImageIO.read(new File("black_token.png"));
 		}catch(IOException e)
 		{e.printStackTrace();}
-		
 		
 		while(gameOn){
 			while(!legalMove)
@@ -44,6 +43,7 @@ public class Main {
 				colorPlaying=colorPlaying.oppositeColor();
 				moveX=0;
 				moveY=0;
+				pane.repaint();
 			}
 			
 		}
