@@ -19,8 +19,8 @@ public class Main {
 		boolean playSkip=false;
 		try
 		{
-		Colors.WHITE.img=ImageIO.read(new File("white_token.jpg"));
-		Colors.BLACK.img=ImageIO.read(new File("black_token.jpg"));
+		Colors.WHITE.img=ImageIO.read(new File("white_token.png"));
+		Colors.BLACK.img=ImageIO.read(new File("black_token.png"));
 		}catch(IOException e)
 		{e.printStackTrace();}
 		
