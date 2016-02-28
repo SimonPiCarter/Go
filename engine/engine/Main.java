@@ -25,7 +25,7 @@ public class Main {
 		{e.printStackTrace();}
 		
 		
-	S	while(gameOn){
+		while(gameOn){
 			while(!legalMove)
 			{
 				///choix du coup et verif de la légalité
