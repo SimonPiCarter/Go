@@ -1,7 +1,5 @@
 package engine;
 
-import java.awt.*;
-
 import javax.swing.*;
 
 
@@ -9,12 +7,10 @@ import javax.swing.*;
 public class Window extends JFrame{
 
 	public Window(int sizeX,int sizeY,String name){
-		
-		JPanel pan=new Panel();
+		this.setVisible(true);
 		this.setSize(sizeX,sizeY);
 		this.setName(name);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		pan.setBackground(Color.BLUE);
 		
 	}
 }
