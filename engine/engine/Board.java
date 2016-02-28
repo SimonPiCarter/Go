@@ -9,15 +9,10 @@ public class Board implements Cloneable{
 	public Board(int size){
 		this.size=size;
 		this.tabBoard= new Cell[this.size][this.size];
-		int y=0;
-		int x=0;
 		
-		while(y<this.size){
-			this.tabBoard[x][y]=new Cell(x,y);
-			x++;
-			if(x==this.size&&y<this.size){
-				y++;
-				x=0;
+		for ( int x = 0 ; x < this.size ; ++ x ) {
+			for ( int y = 0 ; y < this.size ; ++ y ) {
+				this.tabBoard[x][y]=new Cell(x,y);
 			}
 		}
 	}
