@@ -16,10 +16,20 @@ public class Board implements Cloneable{
 			}
 		}
 	}
+	
+	public Board(Board other){
+		this.size=other.size;
+		
+		this.tabBoard= new Cell[this.size][this.size];
+		
+		for ( int x = 0 ; x < this.size ; ++ x ) {
+			for ( int y = 0 ; y < this.size ; ++ y ) {
+				this.tabBoard[x][y]=new Cell(x,y,other.getCell(x, y).getCellColor());
+			}
+		}
+	}
 	public Board newClone(){
-		Board boardClone = new Board(this.size);
-		boardClone.setTabBoard(this.getTabBoard());
-		return boardClone;
+		return new Board(this);
 	}
 	public String toString(){//test
 		String str = "";
