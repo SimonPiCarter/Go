@@ -16,4 +16,13 @@ public class Panel extends JPanel{
 		catch(IOException e){e.printStackTrace();}
 		
 	}
+	
+	private void drawStone(Graphics g, Cell cell) {
+		g.drawImage(
+				cell.getCellColor().img, 
+				cell.getCoordX()*64*this.getWidth()/576, 
+				cell.getCoordY()*64*this.getHeight()/576, 
+				64*this.getWidth()/576, 
+				64*this.getHeight()/576, this);
+	}
 }
