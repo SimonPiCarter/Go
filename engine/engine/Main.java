@@ -25,7 +25,7 @@ public class Main {
 		{e.printStackTrace();}
 		
 		
-		while(gameOn){
+	S	while(gameOn){
 			while(!legalMove)
 			{
 				///choix du coup et verif de la légalité
@@ -37,11 +37,14 @@ public class Main {
 				legalMove=board.isLegal(moveX,moveY,colorPlaying);}
 			}
 			
-			if(!playSkip)board.setCell(moveX, moveY, colorPlaying);
-			board.getCell(moveX,moveY).killCell(board);
-			colorPlaying=colorPlaying.oppositeColor();
-			moveX=0;
-			moveY=0;
+			if(!playSkip)
+			{
+				board.setCell(moveX, moveY, colorPlaying);
+				board.getCell(moveX,moveY).killCell(board);
+				colorPlaying=colorPlaying.oppositeColor();
+				moveX=0;
+				moveY=0;
+			}
 			
 		}
 	}
