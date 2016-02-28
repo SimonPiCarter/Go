@@ -7,12 +7,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		Board board =new Board(9);
-		Window window =new Window(500,500,"Go!");
+		Window window =new Window(576,576,"Go!");
 		Panel pane =new Panel();
+		window.setContentPane(pane);
 		Colors colorPlaying =Colors.WHITE;
 		int moveX=0, moveY=0;
 		MyMouseListener mouseListener = new MyMouseListener();
-		window.setContentPane(pane);
 		pane.addMouseListener(mouseListener);
 		boolean legalMove=false;
 		boolean gameOn=true;
