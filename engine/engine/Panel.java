@@ -1,44 +1,41 @@
 package engine;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import javax.swing.border.EmptyBorder;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
-@SuppressWarnings("serial")
-public class Panel extends JPanel{
+public class Panel {
 	Board board;
-	public Panel(Board board)
+	private Image background = null;
+	
+	public Panel(Board board) throws SlickException
 	{
 		this.board=board;
+		background = new Image("background.png");
 	}
-	public void paintComponent(Graphics g){
+	
+	public void paintComponent(GameContainer gc, Graphics g){
 
-		
-		try{
-			g.drawImage(ImageIO.read(new File("background.png")),0,0,this.getWidth(),this.getHeight(),this);
-			}
-		catch(IOException e)
-			{e.printStackTrace();}
-		
+		g.drawImage(background,0,0);
 		
 		for ( int x = 0 ; x < board.getSize() ; ++ x ) {
 			for ( int y = 0 ; y < board.getSize() ; ++ y ) {
-				this.drawStone(g,board.getCell(x,y));
+				if ( board.getCell(x, y).getCellColor() != Colors.EMPTY ) {
+					this.drawStone(gc,g,board.getCell(x,y));
+				}
 			}
 		}
 	}
 
 	
-	private void drawStone(Graphics g, Cell cell) {
+	private void drawStone(GameContainer gc, Graphics g, Cell cell) {
 		g.drawImage(
 				cell.getCellColor().img, 
-				cell.getCoordX()*64*this.getWidth()/576, 
-				cell.getCoordY()*64*this.getHeight()/576, 
-				64*this.getWidth()/576, 
-				64*this.getHeight()/576, this);
+				cell.getCoordX()*64, 
+				cell.getCoordY()*64);
 	}
 
 }

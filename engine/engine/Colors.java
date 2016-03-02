@@ -1,6 +1,6 @@
 package engine;
 
-import java.awt.Image;
+import org.newdawn.slick.Image;
 
 public enum Colors {
 	BLACK,
