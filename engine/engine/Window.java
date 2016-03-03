@@ -69,6 +69,10 @@ public class Window extends BasicGame {
 	}
 	
 	private void nextTurn() {
+		if(!playSkip)
+		{
+			colorPlaying.setBoardKo(board.clone());
+		}
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;

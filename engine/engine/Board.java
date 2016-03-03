@@ -12,7 +12,7 @@ public class Board implements Cloneable{
 		
 		for ( int x = 0 ; x < this.size ; ++ x ) {
 			for ( int y = 0 ; y < this.size ; ++ y ) {
-				this.tabBoard[x][y]=new Cell(x,y);
+				this.tabBoard[x][y]=new Cell(x,y,Colors.EMPTY);
 			}
 		}
 	}
@@ -48,13 +48,8 @@ public class Board implements Cloneable{
 		}
 		return str;
 	}
-	private Cell[][] getTabBoard(){
-		return this.tabBoard;}
-	private void setTabBoard(Cell[][] tab){
-		this.tabBoard=tab;
-	}
 	public Cell getCell(int x,int y){
-		if(x>0||x<=this.size||y>0||y<=this.size){
+		if(x>=0&&x<this.size&&y>=0&&y<this.size){
 			return tabBoard[x][y];
 		}else return new Cell(Colors.BORDER);
 	}
@@ -65,63 +60,49 @@ public class Board implements Cloneable{
 	public boolean isLegal(int posX,int posY,Colors color){
 		Board boardTemp=this.clone();
 		int compteur=0;
-		int compteuA=0;
-		Colors ennemy=null;	
-		switch(color){
-			case WHITE:
-				ennemy=Colors.BLACK;
-			break;
-			case BLACK:
-				ennemy=Colors.WHITE;
-			break;
-			case EMPTY:
-				ennemy=null;
-			default:return false;
+		Cell currentCell=boardTemp.getCell(posX, posY);
+		currentCell.setCellColor(color);
+		if(currentCell.getCellColor()!=Colors.WHITE&&currentCell.getCellColor()!=Colors.BLACK)
+		{
+			return true;
 		}
-		boardTemp.getCell(posX, posY).setCellColor(color);//on creer un 2e tableau pour faire des essais 
+		
+		Colors ennemy=currentCell.getCellColor().oppositeColor();
+		//on creer un 2e tableau pour faire des essais 
 		if(this.tabBoard[posX][posY].getCellColor()==Colors.EMPTY){//case vide? 1
-			if( boardTemp.getCell(posX-1,posY).getCellColor()!=Colors.EMPTY&&
-				boardTemp.getCell(posX+1,posY).getCellColor()!=Colors.EMPTY&&
-				boardTemp.getCell(posX,posY-1).getCellColor()!=Colors.EMPTY&&
-				boardTemp.getCell(posX,posY+1).getCellColor()!=Colors.EMPTY){//si la case est entouré de pierre?
+			if( currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor()!=Colors.EMPTY&&
+				currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor()!=Colors.EMPTY&&
+				currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor()!=Colors.EMPTY&&
+				currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()!=Colors.EMPTY){//si la case est entouré de pierre?
 				if(!boardTemp.getCell(posX, posY).survivalTest(boardTemp))//est-ce du suicide(brut) doit renvoyer false sinon on peut jouer
 				{
-					if( boardTemp.getCell(posX-1,posY).getCellColor()==ennemy&&
-						boardTemp.getCell(posX+1,posY).getCellColor()==ennemy&&
-						boardTemp.getCell(posX,posY-1).getCellColor()==ennemy&&
-						boardTemp.getCell(posX,posY+1).getCellColor()==ennemy)
+					if( currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor()==ennemy&&
+						currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor()==ennemy&&
+						currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor()==ennemy&&
+						currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()==ennemy)
 					{
-						if(boardTemp.getCell(posX-1,posY).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.WEST).survivalTest(this))
 						{
-							if(color.getBoardKo().equals(boardTemp)){//situation de Ko? verif si le equals verifie toutes las cases du tableau
-								return false;
-							}else compteuA++;
-						}else compteur++;// pour compter si toutes les cases autour sont toutes vivantes
+							compteur++;// pour compter si toutes les cases autour sont toutes vivantes
+						}
 						
-						if(boardTemp.getCell(posX+1,posY).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.EAST).survivalTest(this))
 						{
-							if(color.getBoardKo().equals(boardTemp)){
-								return false;
-							}else compteuA++;
-						}else compteur++;
+							compteur++;
+						}
 						
-						if(boardTemp.getCell(posX,posY-1).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.SOUTH).survivalTest(this))
 						{
-							if(color.getBoardKo().equals(boardTemp)){
-								return false;
-							}else compteuA++;
-						}else compteur++;
+							compteur++;
+						}
 						
-						if(boardTemp.getCell(posX,posY+1).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.NORTH).survivalTest(this))
 						{
-							if(color.getBoardKo().equals(boardTemp)){
-								return false;
-							}else compteuA++;
-						}else compteur++;
+							compteur++;
+						}
 						
-						if(compteur==4)return false;// retourne faux si entuoré d'adversaire et n'en tue aucun
-						if(compteuA>1)return true;
-					}else return false;// si c'est un suicide et que c'est entouré de pierre allié c'est illegal
+						if(compteur==0)return false;// retourne faux si entuoré d'adversaire et n'en tue aucun
+					}else return false;// si c'est un suicide et que c'est entouré de pierre allié c'est illegal C'EST FAUX CA
 				}else return true;// si la piece ne meurt pas c'est authorisé
 			}else return true;// si il y a une liberté disponible authorisé	
 		}return false;//1 si la case est deja ocuppé ce n'est pas autorisé //2 c'est pas du suicide= c'est jouable

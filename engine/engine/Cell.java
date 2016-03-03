@@ -54,32 +54,34 @@ public class Cell {
 	//test the survivibility of the stone true=alive false=dead
 	
 	public boolean survivalTest(Board board){
-		Colors ennemy=null;
-		switch(this.cellColor){
-			case WHITE:
-				ennemy=Colors.BLACK;
-			break;
-			case BLACK:
-				ennemy=Colors.WHITE;
-			break;
-			default:
-				return true;
+		
+		if(this.cellColor!=Colors.WHITE&&this.cellColor!=Colors.BLACK)
+		{
+			return true;
 		}
+		
+		Colors ennemy=this.getCellColor().oppositeColor();
 		//empty space aroud the stone?
-		 if(board.getCell(this.coordX-1,this.coordY).getCellColor()!=Colors.EMPTY&&
-			board.getCell(this.coordX+1,this.coordY).getCellColor()!=Colors.EMPTY&&
-			board.getCell(this.coordX,this.coordY-1).getCellColor()!=Colors.EMPTY&&
-			board.getCell(this.coordX,this.coordY+1).getCellColor()!=Colors.EMPTY)
+		 if(this.cellNearby(board, Directions.EAST).getCellColor()!=Colors.EMPTY&&
+			this.cellNearby(board, Directions.WEST).getCellColor()!=Colors.EMPTY&&
+			this.cellNearby(board, Directions.SOUTH).getCellColor()!=Colors.EMPTY&&
+			this.cellNearby(board, Directions.NORTH).getCellColor()!=Colors.EMPTY)
 		 {
-			 if(board.getCell(this.coordX-1, this.coordY).getCellColor()==ennemy&&
-				board.getCell(this.coordX+1, this.coordY).getCellColor()==ennemy&&
-				board.getCell(this.coordX, this.coordY-1).getCellColor()==ennemy&&
-				board.getCell(this.coordX, this.coordY+1).getCellColor()==ennemy)
-			 {
+			if(this.cellNearby(board, Directions.EAST).getCellColor()==ennemy&&
+				this.cellNearby(board, Directions.WEST).getCellColor()==ennemy&&
+				this.cellNearby(board, Directions.SOUTH).getCellColor()==ennemy&&
+				this.cellNearby(board, Directions.NORTH).getCellColor()==ennemy)
+			{
 				 return false;//si entouré de pierre ennemie celle ci meurt
 				 
-			 }else return this.group(board,this.cellColor);
-		 }else return true;
+			}else
+			{
+				 return this.group(board,this.cellColor);
+			}
+		 }else
+		 {
+			 return true;
+		 }
 	}
 	
 	
