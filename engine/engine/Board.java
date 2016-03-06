@@ -54,10 +54,12 @@ public class Board implements Cloneable{
 					this.tabBoard[x][y]=new Cell(x,y,Colors.EMPTY);
 				}
 			}
-			
-			for(int i=0;playList.size()+offset>i;i++)
+			ArrayList<Action> tempList =new ArrayList<Action>();
+			tempList=this.playList;
+			this.playList=new ArrayList<Action>();
+			for(int i=0;tempList.size()+offset>i;i++)
 			{
-				this.play(playList.get(i));
+				this.play(tempList.get(i));
 			}
 		}
 		
