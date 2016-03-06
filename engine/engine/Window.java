@@ -20,6 +20,7 @@ public class Window extends BasicGame {
 	private int boardX;
 	private int boardY;
 	private boolean eventClicked;
+	private boolean ctrlPressed=false;
 
 	public Window(String name) throws SlickException {
         super(name);		
@@ -51,36 +52,36 @@ public class Window extends BasicGame {
 				///choix du coup et verif de la légalité
 				moveX=boardX/64;
 				moveY=boardY/64;
-				
-				legalMove=board.isLegal(moveX,moveY,colorPlaying);
+				Action playing=new Action(moveX,moveY,colorPlaying);
+				legalMove=board.isLegal(playing);
 				if ( legalMove ) {
-					board.setCell(moveX, moveY, colorPlaying);
-					nextTurn();
+					nextTurn(playing);
 				}
 			}
 			
 			if(playSkip)
 			{
-				nextTurn();
+				nextTurn(new Action());
 			}
 			
 	}
 	
-	private void nextTurn() {
+	private void nextTurn(Action play) {
 		if(!playSkip)
 		{
-			board.getCell(moveX,moveY).killCell(board);
-			colorPlaying.setBoardKo(board.clone());
+			board.play(play);
 		}
+		else
+		{
+			board.play(play);
+		}
+		
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
 		eventClicked=false;
 		moveX=0;
 		moveY=0;
-		System.out.println("White:"+Colors.WHITE.getScore());
-		System.out.println("Black:"+Colors.BLACK.getScore());
-		System.out.println("Color playing : "+colorPlaying+"\n");
 	}
 	
 	public void setPanel(Panel panel) {
@@ -100,6 +101,22 @@ public class Window extends BasicGame {
 	public void keyReleased(int key, char c) {
 		if ( key == Input.KEY_S ) {
 			playSkip = true;
+		}
+		if( key == Input.KEY_BACK&&ctrlPressed)
+		{
+			
+		}
+		
+		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
+			ctrlPressed = false;
+		}
+		
+	}
+	
+	@Override
+	public void keyPressed(int key, char c) {
+		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
+			ctrlPressed = true;
 		}
 	}
 }

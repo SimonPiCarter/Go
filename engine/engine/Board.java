@@ -1,11 +1,13 @@
 package engine;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class Board implements Cloneable{
 	private final int size;
 	private Cell[][] tabBoard;
+	private ArrayList<Action> playList= new ArrayList<Action>();
 	public Board(int size){
 		this.size=size;
 		this.tabBoard= new Cell[this.size][this.size];
@@ -28,6 +30,33 @@ public class Board implements Cloneable{
 			}
 		}
 	}
+	
+	public void play(Action act)
+	{
+		if(!act.isSkip())
+		{
+			int y=act.getCoordY();
+			int x=act.getCoordX();
+			Colors color= act.getColorPlay();
+			this.setCell(x, y, color);
+			this.getCell(x,y).killCell(this);
+			color.setBoardKo(this.clone());
+		}
+		playList.add(act);
+	}
+	
+	public void replay(int offset)//offset must be <0
+	{
+		if(offset<0)
+		{
+			for(int i=0;playList.size()+offset>i;i++)
+			{
+				this.play(playList.get(i));
+			}
+		}
+		
+	}
+	
 	public Board clone(){
 		return new Board(this);
 	}
@@ -84,16 +113,23 @@ public class Board implements Cloneable{
 	{
 		this.getCell(x,y).setCellColor(color);
 	}
-	public boolean isLegal(int posX,int posY,Colors color){
+	public boolean isLegal(Action act){
+		
+		int posX=act.getCoordX();
+		int posY=act.getCoordY();
+		Colors color=act.getColorPlay(); 
 		Board boardTemp=this.clone();
 		int compteur=0;
 		Cell currentCell=boardTemp.getCell(posX, posY);
 		currentCell.setCellColor(color);
+		
+		
 		if(currentCell.getCellColor()!=Colors.WHITE&&currentCell.getCellColor()!=Colors.BLACK)
 		{
 			return true;
 		}
 		
+		Colors ennemy=currentCell.getCellColor().oppositeColor();
 		//on creer un 2e tableau pour faire des essais 
 		if(this.tabBoard[posX][posY].getCellColor()==Colors.EMPTY){//case vide? 1
 			if( currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor()!=Colors.EMPTY&&
@@ -102,10 +138,10 @@ public class Board implements Cloneable{
 				currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()!=Colors.EMPTY){//si la case est entouré de pierre?
 				if(!boardTemp.getCell(posX, posY).survivalTest(boardTemp))//est-ce du suicide(brut) doit renvoyer false sinon on peut jouer
 				{
-					if( color.isEnemy(currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor())&&
-						color.isEnemy(currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor())&&
-						color.isEnemy(currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor())&&
-						color.isEnemy(currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()))
+					if( currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor()==ennemy&&
+						currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor()==ennemy&&
+						currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor()==ennemy&&
+						currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()==ennemy)
 					{
 						if(!currentCell.cellNearby(boardTemp, Directions.WEST).survivalTest(boardTemp))
 						{
@@ -174,4 +210,5 @@ public class Board implements Cloneable{
 			}
 		}
 	}
+
 }
