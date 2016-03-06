@@ -48,6 +48,34 @@ public class Board implements Cloneable{
 		}
 		return str;
 	}
+	
+	public boolean koEquals(Board board,int posX,int y)
+	{
+		int compteur=0;
+		if(board.getSize()==this.size)
+		{
+			for(int x=0;x<this.size;x++)
+			{
+				for(int y=0;y<this.size;y++)
+				{
+					if(board.getCell(x, y).getCellColor()==this.getCell(x, y).getCellColor())
+					{
+						compteur++;
+					}
+					if()
+				}
+			}
+			
+			if(compteur==size*size)
+			{
+				return true;
+			}
+			else return false;	
+		}
+		return false;
+		
+	}
+	
 	public Cell getCell(int x,int y){
 		if(x>=0&&x<this.size&&y>=0&&y<this.size){
 			return tabBoard[x][y];
@@ -81,32 +109,40 @@ public class Board implements Cloneable{
 						currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor()==ennemy&&
 						currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()==ennemy)
 					{
-						if(!currentCell.cellNearby(boardTemp, Directions.WEST).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.WEST).survivalTest(boardTemp))
 						{
 							compteur++;// pour compter si toutes les cases autour sont toutes vivantes
 						}
 						
-						if(!currentCell.cellNearby(boardTemp, Directions.EAST).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.EAST).survivalTest(boardTemp))
 						{
 							compteur++;
 						}
 						
-						if(!currentCell.cellNearby(boardTemp, Directions.SOUTH).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.SOUTH).survivalTest(boardTemp))
 						{
 							compteur++;
 						}
 						
-						if(!currentCell.cellNearby(boardTemp, Directions.NORTH).survivalTest(this))
+						if(!currentCell.cellNearby(boardTemp, Directions.NORTH).survivalTest(boardTemp))
 						{
 							compteur++;
 						}
 						
-						if(compteur==0)return false;// retourne faux si entuoré d'adversaire et n'en tue aucun
+						if(compteur!=0)
+						{
+							if(color.getBoardKo().koEquals(boardTemp,posX, posY))
+							{
+								return false;
+							}
+							return true;
+						}
+						else return false;// retourne faux si entuoré d'adversaire et n'en tue aucun
 					}else return false;// si c'est un suicide et que c'est entouré de pierre allié c'est illegal C'EST FAUX CA
 				}else return true;// si la piece ne meurt pas c'est authorisé
 			}else return true;// si il y a une liberté disponible authorisé	
-		}return false;//1 si la case est deja ocuppé ce n'est pas autorisé //2 c'est pas du suicide= c'est jouable
-
+		}else return false;//1 si la case est deja ocuppé ce n'est pas autorisé //2 c'est pas du suicide= c'est jouable
+		
 		}
 	@Override
 	public boolean equals(Object obj) {
@@ -127,19 +163,16 @@ public class Board implements Cloneable{
 	}
 	public void kill()
 	{
-		int y=0;
-		for(int x=0;y<=this.size;x++){
-			
-			if(this.tabBoard[x][y].isDead())
-			{
-				this.tabBoard[x][y].getCellColor().oppositeColor().scoreUp(1);
-				this.tabBoard[x][y].setDead(false);
-				this.tabBoard[x][y].setCellColor(Colors.EMPTY);
-			}else this.tabBoard[x][y].setDone(false);
-			x++;
-			if(x==this.size&&y<this.size){
-				y++;
-				x=0;
+		for(int x=0;x<this.size;x++){
+			for(int y=0;y<this.size;y++){
+				if(this.tabBoard[x][y].isDead())
+				{
+					this.tabBoard[x][y].getCellColor().oppositeColor().scoreUp(1);
+					this.tabBoard[x][y].setDead(false);
+					this.tabBoard[x][y].setCellColor(Colors.EMPTY);
+					
+				}else
+					this.tabBoard[x][y].setDone(false);
 			}
 		}
 	}

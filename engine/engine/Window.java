@@ -61,7 +61,6 @@ public class Window extends BasicGame {
 			
 			if(playSkip)
 			{
-				//board.getCell(moveX,moveY).killCell(board);
 				nextTurn();
 			}
 			
@@ -70,11 +69,13 @@ public class Window extends BasicGame {
 	private void nextTurn() {
 		if(!playSkip)
 		{
+			board.getCell(moveX,moveY).killCell(board);
 			colorPlaying.setBoardKo(board.clone());
 		}
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
+		eventClicked=false;
 		moveX=0;
 		moveY=0;
 	}

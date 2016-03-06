@@ -60,6 +60,9 @@ public class Cell {
 			return true;
 		}
 		
+		if(done){return true;}
+		if(dead){return false;}
+		
 		Colors ennemy=this.getCellColor().oppositeColor();
 		//empty space aroud the stone?
 		 if(this.cellNearby(board, Directions.EAST).getCellColor()!=Colors.EMPTY&&
@@ -72,14 +75,16 @@ public class Cell {
 				this.cellNearby(board, Directions.SOUTH).getCellColor()==ennemy&&
 				this.cellNearby(board, Directions.NORTH).getCellColor()==ennemy)
 			{
+				this.dead=true;
 				 return false;//si entouré de pierre ennemie celle ci meurt
 				 
 			}else
 			{
-				 return this.group(board,this.cellColor);
+				return this.group(board,this.cellColor);
 			}
 		 }else
 		 {
+			 this.done=true;
 			 return true;
 		 }
 	}
@@ -112,15 +117,13 @@ public class Cell {
 		}
 	}
 	private boolean group(Board board,Colors color){
-		ArrayList<Cell> groupList=new ArrayList<Cell>();
-		int t=-1;//curseur de lecture
+		ArrayList<Cell> groupList=new ArrayList<Cell>();//curseur de lecture
 		int liberties=0;
 		groupList.add(this);
 		if(done){return true;}
 		if(dead){return false;}
-		do
+		for(int t=0;t<groupList.size();t++)
 		{
-			t++;
 			if( groupList.get(t).cellNearby(board,Directions.WEST).getCellColor()==this.cellColor&&
 				!groupList.contains(groupList.get(t).cellNearby(board,Directions.WEST)))
 			{
@@ -145,9 +148,9 @@ public class Cell {
 				groupList.add(groupList.get(t).cellNearby(board,Directions.NORTH));
 			}
 			
-		}while(groupList.get(t+1)!=null);
+		}
 		
-		for(t=0;liberties==0||groupList.get(t+1)!=null;t++)
+		for(int t=0;liberties==0&&t<groupList.size();t++)
 		{
 			if(groupList.get(t).cellNearby(board,Directions.WEST).getCellColor()==Colors.EMPTY){liberties++;}
 			if(groupList.get(t).cellNearby(board,Directions.EAST).getCellColor()==Colors.EMPTY){liberties++;}
@@ -157,7 +160,7 @@ public class Cell {
 		
 		if(liberties==0)
 		{
-			for(t=0;groupList.get(t+1)!=null;t++)
+			for(int t=0;t<groupList.size();t++)
 			{
 				groupList.get(t).setDead(true);//on met les pierres qui sont morte en état "mort"
 			}
@@ -165,7 +168,7 @@ public class Cell {
 		}
 		else
 		{
-			for(t=0;groupList.get(t+1)!=null;t++)
+			for(int t=0;t+1<groupList.size();t++)
 			{
 				groupList.get(t).setDone(true);
 			}
