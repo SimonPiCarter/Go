@@ -78,6 +78,9 @@ public class Window extends BasicGame {
 		eventClicked=false;
 		moveX=0;
 		moveY=0;
+		System.out.println("White:"+Colors.WHITE.getScore());
+		System.out.println("Black:"+Colors.BLACK.getScore());
+		System.out.println("Color playing : "+colorPlaying+"\n");
 	}
 	
 	public void setPanel(Panel panel) {
