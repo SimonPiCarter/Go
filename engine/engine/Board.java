@@ -36,11 +36,12 @@ public class Board implements Cloneable{
 		int i=0;
 		int x=0,y=0;
 		while (i==0){
-			str+=this.tabBoard[x][y];
+			str+=this.tabBoard[x][y].getCellColor()+", ";
 			x++;
 			if(x==this.size&&y<this.size){
 				y++;
 				x=0;
+				str+="\n";
 			}
 			if(y==this.size){
 				i++;
@@ -51,27 +52,20 @@ public class Board implements Cloneable{
 	
 	private boolean koEquals(Board board)
 	{
-		int compteur=0;
 		if(board.getSize()==this.size)
 		{
 			for(int x=0;x<this.size;x++)
 			{
 				for(int y=0;y<this.size;y++)
 				{
-					if(board.getCell(x, y).getCellColor()==this.getCell(x, y).getCellColor())
+					if(board.getCell(x, y).getCellColor()!=this.getCell(x, y).getCellColor())
 					{
-						compteur++;
+						return false;
 					}
 				}
 			}
-			
-			if(compteur==size*size-1)
-			{
-				return true;
-			}
-			else return false;	
 		}
-		return false;
+		return true;
 		
 	}
 	
@@ -129,6 +123,7 @@ public class Board implements Cloneable{
 						
 						if(compteur!=0)
 						{
+							boardTemp.getCell(posX,posY).killCell(boardTemp);
 							if(color.getBoardKo().koEquals(boardTemp))
 							{
 								return false;
