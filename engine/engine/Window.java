@@ -37,7 +37,6 @@ public class Window extends BasicGame {
 		colorPlaying = Colors.WHITE;
 		moveX=0;
 		moveY=0;
-		//window.addMouseListener(mouseListener);
 		legalMove=false;
 		playSkip=false;
 		Colors.WHITE.img = new Image("white_token.png");

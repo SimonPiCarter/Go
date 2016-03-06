@@ -113,7 +113,6 @@ public class Cell {
 	}
 	private boolean group(Board board,Colors color){
 		ArrayList<Cell> groupList=new ArrayList<Cell>();
-		//un groupe ne pas avoir plus de 361 pierres (tableau complet)
 		int t=-1;//curseur de lecture
 		int liberties=0;
 		groupList.add(this);
@@ -124,21 +123,30 @@ public class Cell {
 			t++;
 			if( groupList.get(t).cellNearby(board,Directions.WEST).getCellColor()==this.cellColor&&
 				!groupList.contains(groupList.get(t).cellNearby(board,Directions.WEST)))
-			{groupList.add(groupList.get(t).cellNearby(board,Directions.WEST));}
+			{
+				groupList.add(groupList.get(t).cellNearby(board,Directions.WEST));
+			}
 			
 			if( groupList.get(t).cellNearby(board,Directions.EAST).getCellColor()==this.cellColor&&
-					!groupList.contains(groupList.get(t).cellNearby(board,Directions.EAST)))
-				{groupList.add(groupList.get(t).cellNearby(board,Directions.EAST));}
+				!groupList.contains(groupList.get(t).cellNearby(board,Directions.EAST)))
+			{
+				groupList.add(groupList.get(t).cellNearby(board,Directions.EAST));
+			}
 			
 			if( groupList.get(t).cellNearby(board,Directions.SOUTH).getCellColor()==this.cellColor&&
-					!groupList.contains(groupList.get(t).cellNearby(board,Directions.SOUTH)))
-				{groupList.add(groupList.get(t).cellNearby(board,Directions.SOUTH));}
+				!groupList.contains(groupList.get(t).cellNearby(board,Directions.SOUTH)))
+			{
+				groupList.add(groupList.get(t).cellNearby(board,Directions.SOUTH));
+			}
 			
 			if( groupList.get(t).cellNearby(board,Directions.NORTH).getCellColor()==this.cellColor&&
-					!groupList.contains(groupList.get(t).cellNearby(board,Directions.NORTH)))
-				{groupList.add(groupList.get(t).cellNearby(board,Directions.NORTH));}
+				!groupList.contains(groupList.get(t).cellNearby(board,Directions.NORTH)))
+			{
+				groupList.add(groupList.get(t).cellNearby(board,Directions.NORTH));
+			}
 			
 		}while(groupList.get(t+1)!=null);
+		
 		for(t=0;liberties==0||groupList.get(t+1)!=null;t++)
 		{
 			if(groupList.get(t).cellNearby(board,Directions.WEST).getCellColor()==Colors.EMPTY){liberties++;}
@@ -146,14 +154,21 @@ public class Cell {
 			if(groupList.get(t).cellNearby(board,Directions.NORTH).getCellColor()==Colors.EMPTY){liberties++;}
 			if(groupList.get(t).cellNearby(board,Directions.SOUTH).getCellColor()==Colors.EMPTY){liberties++;}
 		}
+		
 		if(liberties==0)
 		{
-			for(t=0;groupList.get(t+1)!=null;t++){groupList.get(t).setDead(true);}//on met les pierres qui sont morte en état "mort"
+			for(t=0;groupList.get(t+1)!=null;t++)
+			{
+				groupList.get(t).setDead(true);//on met les pierres qui sont morte en état "mort"
+			}
 			return false;
 		}
 		else
 		{
-			for(t=0;groupList.get(t+1)!=null;t++){groupList.get(t).setDone(true);}
+			for(t=0;groupList.get(t+1)!=null;t++)
+			{
+				groupList.get(t).setDone(true);
+			}
 			return true;
 		}
 	}
