@@ -123,6 +123,7 @@ public class Board implements Cloneable{
 						
 						if(compteur!=0)
 						{
+							boardTemp.getCell(posX,posY).setDead(false);
 							boardTemp.getCell(posX,posY).killCell(boardTemp);
 							if(color.getBoardKo().koEquals(boardTemp))
 							{
