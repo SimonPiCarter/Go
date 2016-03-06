@@ -64,7 +64,6 @@ public class Cell {
 		if(done){return true;}
 		if(dead){return false;}
 		
-		Colors ennemy=this.getCellColor().oppositeColor();
 		//empty space aroud the stone?
 		 if(this.cellNearby(board, Directions.EAST).getCellColor()!=Colors.EMPTY&&
 			this.cellNearby(board, Directions.WEST).getCellColor()!=Colors.EMPTY&&
