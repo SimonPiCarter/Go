@@ -49,7 +49,7 @@ public class Board implements Cloneable{
 		return str;
 	}
 	
-	public boolean koEquals(Board board,int posX,int y)
+	private boolean koEquals(Board board)
 	{
 		int compteur=0;
 		if(board.getSize()==this.size)
@@ -62,11 +62,10 @@ public class Board implements Cloneable{
 					{
 						compteur++;
 					}
-					if()
 				}
 			}
 			
-			if(compteur==size*size)
+			if(compteur==size*size-1)
 			{
 				return true;
 			}
@@ -131,7 +130,7 @@ public class Board implements Cloneable{
 						
 						if(compteur!=0)
 						{
-							if(color.getBoardKo().koEquals(boardTemp,posX, posY))
+							if(color.getBoardKo().koEquals(boardTemp))
 							{
 								return false;
 							}
