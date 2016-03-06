@@ -94,7 +94,6 @@ public class Board implements Cloneable{
 			return true;
 		}
 		
-		Colors ennemy=currentCell.getCellColor().oppositeColor();
 		//on creer un 2e tableau pour faire des essais 
 		if(this.tabBoard[posX][posY].getCellColor()==Colors.EMPTY){//case vide? 1
 			if( currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor()!=Colors.EMPTY&&
@@ -103,10 +102,10 @@ public class Board implements Cloneable{
 				currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()!=Colors.EMPTY){//si la case est entouré de pierre?
 				if(!boardTemp.getCell(posX, posY).survivalTest(boardTemp))//est-ce du suicide(brut) doit renvoyer false sinon on peut jouer
 				{
-					if( currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor()==ennemy&&
-						currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor()==ennemy&&
-						currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor()==ennemy&&
-						currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()==ennemy)
+					if( color.isEnemy(currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor())&&
+						color.isEnemy(currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor())&&
+						color.isEnemy(currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor())&&
+						color.isEnemy(currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor()))
 					{
 						if(!currentCell.cellNearby(boardTemp, Directions.WEST).survivalTest(boardTemp))
 						{

@@ -70,10 +70,10 @@ public class Cell {
 			this.cellNearby(board, Directions.SOUTH).getCellColor()!=Colors.EMPTY&&
 			this.cellNearby(board, Directions.NORTH).getCellColor()!=Colors.EMPTY)
 		 {
-			if(this.cellNearby(board, Directions.EAST).getCellColor()==ennemy&&
-				this.cellNearby(board, Directions.WEST).getCellColor()==ennemy&&
-				this.cellNearby(board, Directions.SOUTH).getCellColor()==ennemy&&
-				this.cellNearby(board, Directions.NORTH).getCellColor()==ennemy)
+			if(this.cellColor.isEnemy(this.cellNearby(board, Directions.EAST).getCellColor())&&
+				this.cellColor.isEnemy(this.cellNearby(board, Directions.WEST).getCellColor())&&
+				this.cellColor.isEnemy(this.cellNearby(board, Directions.SOUTH).getCellColor())&&
+				this.cellColor.isEnemy(this.cellNearby(board, Directions.NORTH).getCellColor()))
 			{
 				this.dead=true;
 				 return false;//si entouré de pierre ennemie celle ci meurt
@@ -97,20 +97,20 @@ public class Cell {
 	{
 		switch(dir){
 		
-			case WEST:
-				if(this.coordX-1>0){
+			case NORTH:
+				if(this.coordX-1>=0){
 					return board.getCell(coordX-1, coordY);
 				}else return new Cell(Colors.BORDER);//gestion des bords
-			case EAST:
+			case SOUTH:
 				if(this.coordX+1<board.getSize()){
 					return board.getCell(coordX+1, coordY);
 				}else return new Cell(Colors.BORDER);
-			case SOUTH:
-				if(this.coordY-1>0){
+			case WEST:
+				if(this.coordY-1>=0){
 					return board.getCell(coordX, coordY-1);
 				}else return new Cell(Colors.BORDER);
-			case NORTH:
-				if(this.coordX+1<board.getSize()){
+			case EAST:
+				if(this.coordY+1<board.getSize()){
 					return board.getCell(coordX, coordY+1);
 				}else return new Cell(Colors.BORDER);
 			default: return null;
