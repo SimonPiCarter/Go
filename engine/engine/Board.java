@@ -49,6 +49,12 @@ public class Board implements Cloneable{
 	{
 		if(offset<0)
 		{
+			for ( int x = 0 ; x < this.size ; ++ x ) {
+				for ( int y = 0 ; y < this.size ; ++ y ) {
+					this.tabBoard[x][y]=new Cell(x,y,Colors.EMPTY);
+				}
+			}
+			
 			for(int i=0;playList.size()+offset>i;i++)
 			{
 				this.play(playList.get(i));

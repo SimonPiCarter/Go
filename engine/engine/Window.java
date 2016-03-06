@@ -102,9 +102,10 @@ public class Window extends BasicGame {
 		if ( key == Input.KEY_S ) {
 			playSkip = true;
 		}
-		if( key == Input.KEY_BACK&&ctrlPressed)
+		//if( key == Input.KEY_BACK&&ctrlPressed)
+		if(key==Input.KEY_A)
 		{
-			
+			board.replay(-1);
 		}
 		
 		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
