@@ -47,8 +47,9 @@ public class Cell {
 			cellColor=cell.getCellColor();
 		}
 	
-	public String toString(){//test
-		return "coordonées("+this.coordX+";"+this.coordY+")\n";
+	public String toString(){
+		return "Cell[coordinate=("+this.coordX+";"+this.coordY+"), "+ 
+		"color="+cellColor+"]\n";
 	}
 
 	//test the survivibility of the stone true=alive false=dead
