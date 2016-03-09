@@ -89,7 +89,7 @@ public class Cell {
 		 }
 	}
 	
-	
+
 	//permet de savoir si la pierre dans la direction donnée
 	//Si c'est vrai elle renvoye vrai (boolean version)
 	
@@ -116,6 +116,7 @@ public class Cell {
 			default: return null;
 		}
 	}
+
 	private boolean group(Board board,Colors color){
 		ArrayList<Cell> groupList=new ArrayList<Cell>();//curseur de lecture
 		int liberties=0;

@@ -21,6 +21,7 @@ public class Window extends BasicGame {
 	private int boardY;
 	private boolean eventClicked;
 	private boolean ctrlPressed=false;
+	private boolean justSkip=false;
 
 	public Window(String name) throws SlickException {
         super(name);		
@@ -67,21 +68,28 @@ public class Window extends BasicGame {
 	}
 	
 	private void nextTurn(Action play) {
-		if(!playSkip)
+		if(playSkip)
 		{
-			board.play(play);
+			if(justSkip)
+			{
+				endOfGame();
+			}
+			justSkip=true;
 		}
 		else
 		{
-			board.play(play);
+			justSkip=false;
 		}
-		
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
 		eventClicked=false;
 		moveX=0;
 		moveY=0;
+	}
+	
+	private void endOfGame(){
+		
 	}
 	
 	public void setPanel(Panel panel) {

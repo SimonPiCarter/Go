@@ -215,4 +215,132 @@ public class Board implements Cloneable{
 		}
 	}
 
+	public void groupForScore()
+	{
+		
+		
+		for ( int x = 0 ; x < size ; ++ x ) {
+			for ( int y = 0 ; y < size ; ++ y ) {
+				
+				if(this.getCell(x, y).getCellColor()==Colors.EMPTY){
+					if(!this.getCell(x, y).isDone()){
+						ArrayList<Cell> groupList=new ArrayList<Cell>();
+						Colors scoreColor=Colors.EMPTY;
+						groupList.add(this.getCell(x, y));
+						
+						for(int t=0;t<groupList.size();t++)
+						{
+							if( groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()==Colors.EMPTY&&
+								!groupList.contains(groupList.get(t).cellNearby(this,Directions.WEST)))
+							{
+								groupList.add(groupList.get(t).cellNearby(this,Directions.WEST));
+							}
+							else
+							{
+								if(scoreColor!=Colors.EMPTY)
+								{
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										break;
+									}
+									switch (groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										case WHITE:
+											scoreColor=Colors.WHITE;
+										case BLACK:
+											scoreColor=Colors.BLACK;
+										default:
+									}
+								}
+								
+										
+							}
+							if( groupList.get(t).cellNearby(this,Directions.EAST).getCellColor()==Colors.EMPTY&&
+								!groupList.contains(groupList.get(t).cellNearby(this,Directions.EAST)))
+							{
+								groupList.add(groupList.get(t).cellNearby(this,Directions.EAST));
+							}
+							else
+							{
+								if(scoreColor!=Colors.EMPTY)
+								{
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										break;
+									}
+									switch (groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										case WHITE:
+											scoreColor=Colors.WHITE;
+										case BLACK:
+											scoreColor=Colors.BLACK;
+										default:
+									}
+								}
+								
+										
+							}
+							if( groupList.get(t).cellNearby(this,Directions.SOUTH).getCellColor()==Colors.EMPTY&&
+								!groupList.contains(groupList.get(t).cellNearby(this,Directions.SOUTH)))
+							{
+								groupList.add(groupList.get(t).cellNearby(this,Directions.SOUTH));
+							}
+							else
+							{
+								if(scoreColor!=Colors.EMPTY)
+								{
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										break;
+									}
+									switch (groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										case WHITE:
+											scoreColor=Colors.WHITE;
+										case BLACK:
+											scoreColor=Colors.BLACK;
+										default:
+									}
+								}
+								
+										
+							}
+							if( groupList.get(t).cellNearby(this,Directions.NORTH).getCellColor()==Colors.EMPTY&&
+								!groupList.contains(groupList.get(t).cellNearby(this,Directions.NORTH)))
+							{
+								groupList.add(groupList.get(t).cellNearby(this,Directions.NORTH));
+							}
+							else
+							{
+								if(scoreColor!=Colors.EMPTY)
+								{
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										break;
+									}
+									switch (groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									{
+										case WHITE:
+											scoreColor=Colors.WHITE;
+										case BLACK:
+											scoreColor=Colors.BLACK;
+										default:
+									}
+								}
+								
+										
+							}
+						}
+						
+						scoreColor.scoreUp(groupList.size());
+						for(int t=0;t<groupList.size();t++)
+						{
+							groupList.get(t).setDone(true);
+						}
+					}
+				}
+				
+			}	
+		}
+	}
 }
