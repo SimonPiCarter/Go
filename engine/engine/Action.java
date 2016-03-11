@@ -6,16 +6,25 @@ public class Action {
 	private int coordY;
 	private Colors colorPlay;
 	private boolean skip=false;
+	private boolean kill=false;
 	
-	public Action(int coordX, int coordY, Colors colorPlay) {
-			this.coordX = coordX;
-			this.coordY = coordY;
-			this.colorPlay = colorPlay;
-		}
-	public Action() {
+	public Action(int coordX, int coordY, Colors colorPlay)
+	{
+		this.coordX = coordX;
+		this.coordY = coordY;
+		this.colorPlay = colorPlay;
+	}
+	
+	public Action()
+	{
 		skip=true;
 	}
 	
+	public Action(int coordX, int coordY, boolean kill) {
+		this.coordX = coordX;
+		this.coordY = coordY;
+		this.kill = kill;
+	}
 	public int getCoordX() {
 		return coordX;
 	}
@@ -39,6 +48,9 @@ public class Action {
 	}
 	public void setSkip(boolean skip) {
 		this.skip = skip;
+	}
+	public boolean isKill() {
+		return kill;
 	}
 	
 	

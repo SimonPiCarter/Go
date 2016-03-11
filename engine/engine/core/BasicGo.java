@@ -18,7 +18,7 @@ public class BasicGo implements ICore {
 	private boolean playSkip;
 	private boolean legalMove;
 	private Board board;
-	
+	private boolean endGame=false;
 	private Colors colorPlaying;
 	
 	private Action newAction = null;
@@ -80,8 +80,9 @@ public class BasicGo implements ICore {
 		newAction=null;
 	}
 	
-	private void endOfGame(){
-		
+	private void endOfGame()
+	{
+		endGame=true;
 	}
 	
 	public void setPanel(Panel panel) {
@@ -91,8 +92,13 @@ public class BasicGo implements ICore {
 	@Override
 	public void mouseReleased(int button, int x, int y) {
 		if ( button == 0 ) {
-			newAction = new Action(x/64,y/64,colorPlaying);
+			if(endGame)
+			{
+				newAction = new Action(x/64,y/64,true);
+			}
+			else newAction = new Action(x/64,y/64,colorPlaying);
 		}
+
 	}
 
 	@Override
