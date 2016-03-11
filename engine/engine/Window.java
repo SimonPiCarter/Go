@@ -14,12 +14,10 @@ public class Window extends BasicGame {
 	private boolean playSkip;
 	private boolean legalMove;
 	private Board board;
-	private int moveX;
-	private int moveY;
+	
 	private Colors colorPlaying;
-	private int boardX;
-	private int boardY;
-	private boolean eventClicked;
+	
+	private Action newAction = null;
 	private boolean ctrlPressed=false;
 	private boolean justSkip=false;
 
@@ -37,8 +35,6 @@ public class Window extends BasicGame {
 		board =new Board(9);
 		panel = new Panel(board);
 		colorPlaying = Colors.WHITE;
-		moveX=0;
-		moveY=0;
 		legalMove=false;
 		playSkip=false;
 		Colors.WHITE.img = new Image("white_token.png");
@@ -48,15 +44,12 @@ public class Window extends BasicGame {
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
-			if( eventClicked )
+			if( newAction != null )
 			{
 				///choix du coup et verif de la légalité
-				moveX=boardX/64;
-				moveY=boardY/64;
-				Action playing=new Action(moveX,moveY,colorPlaying);
-				legalMove=board.isLegal(playing);
+				legalMove=board.isLegal(newAction);
 				if ( legalMove ) {
-					nextTurn(playing);
+					nextTurn(newAction);
 				}
 			}
 			
@@ -84,9 +77,8 @@ public class Window extends BasicGame {
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
-		eventClicked=false;
-		moveX=0;
-		moveY=0;
+		
+		newAction=null;
 	}
 	
 	private void endOfGame(){
@@ -100,9 +92,7 @@ public class Window extends BasicGame {
 	@Override
 	public void mouseReleased(int button, int x, int y) {
 		if ( button == 0 ) {
-			boardX=x;
-			boardY=y;
-			eventClicked=true;
+			newAction = new Action(x/64,y/64,colorPlaying);
 		}
 	}
 
