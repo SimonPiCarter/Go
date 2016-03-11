@@ -78,6 +78,7 @@ public class Window extends BasicGame {
 		}
 		else
 		{
+			board.play(play);
 			justSkip=false;
 		}
 		colorPlaying=colorPlaying.oppositeColor();
