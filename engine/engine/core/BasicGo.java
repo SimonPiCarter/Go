@@ -25,13 +25,7 @@ public class BasicGo implements ICore {
 	private boolean ctrlPressed=false;
 	private boolean justSkip=false;
 
-	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException {
-		panel.paintComponent(gc,g);
-	}
-
-	@Override
-	public void init() throws SlickException {
+	public BasicGo() throws SlickException {
 		board =new Board(9);
 		panel = new Panel(board);
 		colorPlaying = Colors.WHITE;
@@ -40,6 +34,11 @@ public class BasicGo implements ICore {
 		Colors.WHITE.setImg(new Image("white_token.png"));
 		Colors.BLACK.setImg(new Image("black_token.png"));
 		
+	}
+
+	@Override
+	public void render(GameContainer gc, Graphics g) throws SlickException {
+		panel.paintComponent(gc,g);
 	}
 
 	@Override

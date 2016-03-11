@@ -11,7 +11,7 @@ import engine.core.ICore;
 
 public class Window extends BasicGame {
 	
-	private ICore core = new BasicGo();
+	private ICore core;
 
 	public Window(String name) throws SlickException {
         super(name);		
@@ -24,8 +24,7 @@ public class Window extends BasicGame {
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
-		core.init();
-		
+		core = new BasicGo();
 	}
 
 	@Override
