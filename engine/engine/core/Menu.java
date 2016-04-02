@@ -12,13 +12,13 @@ import org.newdawn.slick.TrueTypeFont;
 
 public class Menu implements ICore {
 
-	private Image selection;
-	private int itemSelected;
+	protected Image selection;
+	protected int itemSelected;
 	
-	private ICore nextCore;
+	protected ICore nextCore;
 	
 	private Font font;
-	private TrueTypeFont ttf;
+	protected TrueTypeFont ttf;
 	private boolean exit;
 	
 	@Override
@@ -49,23 +49,23 @@ public class Menu implements ICore {
 		if ( nextCore != this ) {
 			nextCore.init();
 		}
-		return nextCore;
+		ICore old_nextCore = nextCore;
+		nextCore = this;
+		return old_nextCore;
 	}
 
 	@Override
 	public void mouseReleased(int button, int x, int y) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(int key, char c) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyPressed(int key, char c) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void keyReleased(int key, char c) {
 		if ( key == Input.KEY_UP ) {
 			itemSelected = Math.max(0, itemSelected-1);
 		}
@@ -77,7 +77,7 @@ public class Menu implements ICore {
 			case 0:
 				break;
 			case 1:
-				nextCore = new BasicGo(false);
+				nextCore = new MenuLocalMulti(this);
 				break;
 			case 2:
 				//nextCore = new MultiplayerMenu();
