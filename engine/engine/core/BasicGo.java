@@ -18,12 +18,12 @@ public class BasicGo implements ICore {
 	private boolean playSkip;
 	private boolean legalMove;
 	private Board board;
-	private boolean endGame=false;
+	private boolean endGame;
 	private Colors colorPlaying;
-	
+	private boolean computedScore;
 	private Action newAction = null;
-	private boolean ctrlPressed=false;
-	private boolean justSkip=false;
+	private boolean ctrlPressed;
+	private boolean justSkip;
 
 	public BasicGo() {
 		board =new Board(9);
@@ -66,7 +66,7 @@ public class BasicGo implements ICore {
 		{
 			if(justSkip)
 			{
-				endOfGame();
+				endGame=true;
 			}
 			justSkip=true;
 		}
@@ -75,18 +75,20 @@ public class BasicGo implements ICore {
 			board.play(play);
 			justSkip=false;
 		}
+		if(endGame&&!computedScore)
+		{
+			board.groupForScore();
+			computedScore=true;
+		}
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
-		
+		System.out.println("BLACK :"+Colors.BLACK.getScore());
+		System.out.println("WHITE :"+Colors.WHITE.getScore()+"\n");
 		newAction=null;
 	}
 	
-	private void endOfGame()
-	{
-		endGame=true;
-	}
-	
+
 	public void setPanel(Panel panel) {
 		this.panel  = panel;
 	}

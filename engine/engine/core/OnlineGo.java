@@ -20,13 +20,13 @@ public class OnlineGo implements ICore {
 	private boolean playSkip;
 	private boolean legalMove;
 	private Board board;
-	
+	private boolean endGame;
 	private Colors localColor;
 	private Colors colorPlaying;
-	
+	private boolean computedScore;
 	private Action newAction = null;
 	//private boolean ctrlPressed=false;
-	private boolean justSkip=false;
+	private boolean justSkip;
 
 	
 	public OnlineGo(AbstractOnlinePlayer player, Colors local) {
@@ -85,7 +85,7 @@ public class OnlineGo implements ICore {
 		{
 			if(justSkip)
 			{
-				endOfGame();
+				endGame=true;
 			}
 			justSkip=true;
 		}
@@ -94,6 +94,11 @@ public class OnlineGo implements ICore {
 			board.play(play);
 			justSkip=false;
 		}
+		if(endGame&&!computedScore)
+		{
+			board.groupForScore();
+			computedScore=true;
+		}
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
@@ -101,9 +106,6 @@ public class OnlineGo implements ICore {
 		newAction=null;
 	}
 	
-	private void endOfGame(){
-		
-	}
 	
 	public void setPanel(Panel panel) {
 		this.panel  = panel;
@@ -112,7 +114,11 @@ public class OnlineGo implements ICore {
 	@Override
 	public void mouseReleased(int button, int x, int y) {
 		if ( button == 0 && colorPlaying.equals(localColor) ) {
-			newAction = new Action(x/64,y/64,colorPlaying);
+			if(endGame)
+			{
+				newAction = new Action(x/64,y/64,true);
+			}
+			else newAction = new Action(x/64,y/64,colorPlaying);
 		}
 	}
 

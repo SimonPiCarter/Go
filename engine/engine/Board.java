@@ -37,9 +37,9 @@ public class Board implements Cloneable{
 		{
 			int y=act.getCoordY();
 			int x=act.getCoordX();
-			if(this.getCell(x, y).getCellColor()==Colors.WHITE&&this.getCell(x, y).getCellColor()==Colors.BLACK)
+			if(this.getCell(x, y).getCellColor()==Colors.WHITE||this.getCell(x, y).getCellColor()==Colors.BLACK)
 			{
-				this.getCell(x, y).getCellColor().scoreUp(1);
+				this.getCell(x, y).getCellColor().oppositeColor().scoreUp(1);
 			}
 			
 			this.getCell(x, y).setCellColor(Colors.EMPTY);
@@ -271,16 +271,16 @@ public class Board implements Cloneable{
 							{
 								groupList.add(groupList.get(t).cellNearby(this,Directions.EAST));
 							}
-							else if(groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()!=Colors.EMPTY&&
-									groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()!=Colors.BORDER)
+							else if(groupList.get(t).cellNearby(this,Directions.EAST).getCellColor()!=Colors.EMPTY&&
+									groupList.get(t).cellNearby(this,Directions.EAST).getCellColor()!=Colors.BORDER)
 							{
 								if(scoreColor==Colors.EMPTY)
 								{
-									scoreColor=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor();
+									scoreColor=groupList.get(t).cellNearby(this,Directions.EAST).getCellColor();
 								}
 								if(scoreColor!=Colors.EMPTY)
 								{
-									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.EAST).getCellColor())
 									{
 										break;
 									}
@@ -293,16 +293,16 @@ public class Board implements Cloneable{
 							{
 								groupList.add(groupList.get(t).cellNearby(this,Directions.SOUTH));
 							}
-							else if(groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()!=Colors.EMPTY&&
-									groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()!=Colors.BORDER)
+							else if(groupList.get(t).cellNearby(this,Directions.SOUTH).getCellColor()!=Colors.EMPTY&&
+									groupList.get(t).cellNearby(this,Directions.SOUTH).getCellColor()!=Colors.BORDER)
 							{
 								if(scoreColor==Colors.EMPTY)
 								{
-									scoreColor=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor();
+									scoreColor=groupList.get(t).cellNearby(this,Directions.SOUTH).getCellColor();
 								}
 								if(scoreColor!=Colors.EMPTY)
 								{
-									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.SOUTH).getCellColor())
 									{
 										break;
 									}
@@ -315,16 +315,16 @@ public class Board implements Cloneable{
 							{
 								groupList.add(groupList.get(t).cellNearby(this,Directions.NORTH));
 							}
-							else if(groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()!=Colors.EMPTY&&
-									groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()!=Colors.BORDER)
+							else if(groupList.get(t).cellNearby(this,Directions.NORTH).getCellColor()!=Colors.EMPTY&&
+									groupList.get(t).cellNearby(this,Directions.NORTH).getCellColor()!=Colors.BORDER)
 							{
 								if(scoreColor==Colors.EMPTY)
 								{
-									scoreColor=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor();
+									scoreColor=groupList.get(t).cellNearby(this,Directions.NORTH).getCellColor();
 								}
 								if(scoreColor!=Colors.EMPTY)
 								{
-									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
+									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.NORTH).getCellColor())
 									{
 										break;
 									}
