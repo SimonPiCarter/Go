@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) throws SlickException, IOException {
 		
-		new AppGameContainer(new Window(new Menu(), "Go!"), 576, 576, false).start();
+		new AppGameContainer(new Window(new Menu(), "Go!"), 608, 608, false).start();
 		
 	}
 }
