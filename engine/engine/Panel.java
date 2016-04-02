@@ -9,10 +9,10 @@ public class Panel {
 	Board board;
 	private Image background = null;
 	
-	public Panel(Board board) throws SlickException
+	public Panel(Board board, Image background) throws SlickException
 	{
 		this.board=board;
-		background = new Image("images/background.png");
+		this.background = background;
 	}
 	
 	public void paintComponent(GameContainer gc, Graphics g){

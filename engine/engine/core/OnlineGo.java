@@ -15,13 +15,10 @@ public class OnlineGo extends BasicGo {
 	private Colors localColor;
 	
 	public OnlineGo(AbstractOnlinePlayer player, Colors local) {
+		super();
 		this.player = player;
 		player.start();
-		board =new Board(9);
-		localColor = local; 	
-		colorPlaying = Colors.WHITE;
-		legalMove=false;
-		playSkip=false;
+		localColor = local;
 	}
 
 	@Override

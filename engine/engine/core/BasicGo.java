@@ -33,7 +33,7 @@ public class BasicGo implements ICore {
 	}
 	
 	public void init() throws SlickException {
-		panel = new Panel(board);
+		panel = new Panel(board, new Image("images/background.png"));
 		Colors.WHITE.setImg(new Image("images/white_token.png"));
 		Colors.BLACK.setImg(new Image("images/black_token.png"));
 	}
