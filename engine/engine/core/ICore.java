@@ -6,6 +6,8 @@ import org.newdawn.slick.SlickException;
 
 public interface ICore {
 	
+	public void init() throws SlickException;
+	
 	public void render(GameContainer gc, Graphics g) throws SlickException;
 	
 	public void update(GameContainer arg0, int arg1) throws SlickException;

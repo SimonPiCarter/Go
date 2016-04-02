@@ -53,5 +53,9 @@ public class Action {
 		return kill;
 	}
 	
+	public String toString() {
+		return "Action = [x="+coordX+", y="+coordY+", color="+colorPlay+", skip="+skip+", kill="+kill+"]";
+	}
+	
 	
 }

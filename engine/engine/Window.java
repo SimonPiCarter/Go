@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import engine.core.BasicGo;
 import engine.core.ICore;
 
 
@@ -13,8 +12,9 @@ public class Window extends BasicGame {
 	
 	private ICore core;
 
-	public Window(String name) throws SlickException {
-        super(name);		
+	public Window(ICore core, String name) throws SlickException {
+        super(name);	
+        this.core = core;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Window extends BasicGame {
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
-		core = new BasicGo();
+		core.init();
 	}
 
 	@Override
