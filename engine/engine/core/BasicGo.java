@@ -1,10 +1,14 @@
 package engine.core;
 
+import java.awt.Font;
+
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 
 import engine.Action;
 import engine.Board;
@@ -13,8 +17,6 @@ import engine.Panel;
 
 public class BasicGo implements ICore {
     
-	protected ICore nextCore;
-	
 	protected boolean small;
 	protected Panel panel = null;
 	protected boolean playSkip;
@@ -26,14 +28,17 @@ public class BasicGo implements ICore {
 	protected Action newAction = null;
 	protected boolean ctrlPressed;
 	protected boolean justSkip;
+	protected Font font;
+	protected Font fontB;
+	protected TrueTypeFont ttf;
+	protected TrueTypeFont ttfB;
 
 	public BasicGo(boolean small) {
 		if ( small ) {
-			board = new Board(9,76);
+			board = new Board(9,64);
 		} else {
-			board = new Board(19,36);
+			board = new Board(19,32);
 		}
-		nextCore = this;
 		this.small = small;
 		colorPlaying = Colors.WHITE;
 		legalMove=false;
@@ -50,36 +55,38 @@ public class BasicGo implements ICore {
 			Colors.WHITE.setImg(new Image("images/white_token_19.png"));
 			Colors.BLACK.setImg(new Image("images/black_token_19.png"));			
 		}
+		font = new Font("Verdana", Font.BOLD, 10);
+		fontB = new Font("Verdana", Font.BOLD, 20);
+	    ttf = new TrueTypeFont(font, true);
+	    ttfB = new TrueTypeFont(fontB, true);
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		panel.paintComponent(gc,g);
+		ttf.drawString(15, 684+10, "CTRL + Z = Undo", Color.white);
+		ttf.drawString(15, 684+20, "S = Skip", Color.white);
+		ttfB.drawString(300, 684+10, "White = "+Colors.WHITE.getScore(), Color.white);
+		ttfB.drawString(306, 684+30, "Black = "+Colors.BLACK.getScore(), Color.white);
+		
 	}
 
 	@Override
 	public ICore update(GameContainer arg0, int arg1) throws SlickException {
-
-		if ( nextCore != this ) {
-			nextCore.init();
-			ICore old_nextCore = nextCore;
-			nextCore = this;
-			return old_nextCore;
-		}
-		if( newAction != null )
-		{
-			///choix du coup et verif de la légalité
-			legalMove=board.isLegal(newAction);
-			if ( legalMove ) {
-				nextTurn(newAction);
+			if( newAction != null )
+			{
+				///choix du coup et verif de la légalité
+				legalMove=board.isLegal(newAction);
+				if ( legalMove ) {
+					nextTurn(newAction);
+				}
 			}
-		}
-		
-		if(playSkip)
-		{
-			nextTurn(new Action());
-		}
-		return this;
+			
+			if(playSkip)
+			{
+				nextTurn(new Action());
+			}
+			return this;
 	}
 	
 	protected void nextTurn(Action play) {
@@ -139,10 +146,6 @@ public class BasicGo implements ICore {
 		
 		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
 			ctrlPressed = false;
-		}
-		
-		if ( key == Input.KEY_ESCAPE ) {
-			nextCore = new MenuInGame(this);
 		}
 		
 	}
