@@ -31,6 +31,7 @@ public class OnlineGo implements ICore {
 	
 	public OnlineGo(AbstractOnlinePlayer player, Colors local) {
 		this.player = player;
+		player.start();
 		board =new Board(9);
 		localColor = local; 	
 		colorPlaying = Colors.WHITE;
@@ -55,7 +56,7 @@ public class OnlineGo implements ICore {
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 			if ( !localColor.equals(colorPlaying) ) {
 				// Ask for server if an action has been played
-				newAction = player.queryAction();
+				newAction = player.getAction();
 			}
 			if( newAction != null )
 			{

@@ -8,7 +8,9 @@ import java.net.Socket;
 import engine.Action;
 import engine.Colors;
 
-public abstract class AbstractOnlinePlayer {
+public abstract class AbstractOnlinePlayer extends Thread {
+	
+	private Action act;
 	
 	protected Socket socket;
 	protected BufferedReader input;
@@ -16,6 +18,13 @@ public abstract class AbstractOnlinePlayer {
 	
 	public void close() throws IOException {
 		socket.close();
+	}
+	
+	@Override
+	public void run() {
+		while ( true ) {
+			queryAction();
+		}
 	}
 	
 	public void sendAction(Action action) {
@@ -27,20 +36,23 @@ public abstract class AbstractOnlinePlayer {
 			output.println(action.getColorPlay());
 			output.flush();
 		}
+		synchronized (this) {
+			act = null;
+		}
 	}
 	
-	public Action queryAction() {
-		Action act = null;
-		
-		
+	public void queryAction() {		
 		try {
 			if ( input.readLine().equals("action") ) {
-				int x = Integer.parseInt(input.readLine());
-				int y = Integer.parseInt(input.readLine());
-				boolean skip = Boolean.parseBoolean(input.readLine());
-				Colors color = Colors.valueOf(input.readLine());
-				act = new Action(x,y,color);
-				act.setSkip(skip);
+				synchronized (this) {
+					int x = Integer.parseInt(input.readLine());
+					int y = Integer.parseInt(input.readLine());
+					boolean skip = Boolean.parseBoolean(input.readLine());
+					Colors color = Colors.valueOf(input.readLine());
+					act = new Action(x,y,color);
+					act.setSkip(skip);
+				}
+				
 			}
 
 		} catch (IOException e) {
@@ -51,8 +63,11 @@ public abstract class AbstractOnlinePlayer {
 				e1.printStackTrace();
 			}
 		}
-		
-
-		return act;
+	}
+	
+	public Action getAction() {
+		synchronized (this) {
+			return act;
+		}
 	}
 }
