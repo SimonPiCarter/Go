@@ -43,8 +43,8 @@ public class OnlineGo implements ICore {
 	@Override
 	public void init() throws SlickException {
 		panel = new Panel(board);
-		Colors.WHITE.setImg(new Image("white_token.png"));
-		Colors.BLACK.setImg(new Image("black_token.png"));
+		Colors.WHITE.setImg(new Image("images/white_token.png"));
+		Colors.BLACK.setImg(new Image("images/black_token.png"));
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class OnlineGo implements ICore {
 	}
 
 	@Override
-	public void update(GameContainer arg0, int arg1) throws SlickException {
+	public ICore update(GameContainer arg0, int arg1) throws SlickException {
 			if ( !localColor.equals(colorPlaying) ) {
 				// Ask for server if an action has been played
 				newAction = player.getAction();
@@ -82,7 +82,7 @@ public class OnlineGo implements ICore {
 				}
 				nextTurn(newAction);
 			}
-			
+			return this;
 	}
 	
 	private void nextTurn(Action play) {

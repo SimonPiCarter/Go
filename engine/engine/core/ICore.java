@@ -10,7 +10,7 @@ public interface ICore {
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException;
 	
-	public void update(GameContainer arg0, int arg1) throws SlickException;
+	public ICore update(GameContainer arg0, int arg1) throws SlickException;
 	
 	public void mouseReleased(int button, int x, int y);
 

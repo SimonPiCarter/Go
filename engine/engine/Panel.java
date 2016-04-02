@@ -12,7 +12,7 @@ public class Panel {
 	public Panel(Board board) throws SlickException
 	{
 		this.board=board;
-		background = new Image("background.png");
+		background = new Image("images/background.png");
 	}
 	
 	public void paintComponent(GameContainer gc, Graphics g){

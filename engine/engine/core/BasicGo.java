@@ -34,8 +34,8 @@ public class BasicGo implements ICore {
 	
 	public void init() throws SlickException {
 		panel = new Panel(board);
-		Colors.WHITE.setImg(new Image("white_token.png"));
-		Colors.BLACK.setImg(new Image("black_token.png"));
+		Colors.WHITE.setImg(new Image("images/white_token.png"));
+		Colors.BLACK.setImg(new Image("images/black_token.png"));
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class BasicGo implements ICore {
 	}
 
 	@Override
-	public void update(GameContainer arg0, int arg1) throws SlickException {
+	public ICore update(GameContainer arg0, int arg1) throws SlickException {
 			if( newAction != null )
 			{
 				///choix du coup et verif de la légalité
@@ -58,7 +58,7 @@ public class BasicGo implements ICore {
 			{
 				nextTurn(new Action());
 			}
-			
+			return this;
 	}
 	
 	private void nextTurn(Action play) {
