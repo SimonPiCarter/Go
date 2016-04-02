@@ -64,6 +64,11 @@ public class BasicGo implements ICore {
 	private void nextTurn(Action play) {
 		if(playSkip)
 		{
+			if(endGame&&!computedScore)
+			{
+				board.groupForScore();
+				computedScore=true;
+			}
 			if(justSkip)
 			{
 				endGame=true;
@@ -75,11 +80,7 @@ public class BasicGo implements ICore {
 			board.play(play);
 			justSkip=false;
 		}
-		if(endGame&&!computedScore)
-		{
-			board.groupForScore();
-			computedScore=true;
-		}
+		
 		colorPlaying=colorPlaying.oppositeColor();
 		legalMove = false;
 		playSkip = false;
