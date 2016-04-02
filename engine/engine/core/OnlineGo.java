@@ -1,33 +1,18 @@
 package engine.core;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import engine.Action;
 import engine.Board;
 import engine.Colors;
-import engine.Panel;
 import server.AbstractOnlinePlayer;
 
-public class OnlineGo implements ICore {
+public class OnlineGo extends BasicGo {
     
 	private AbstractOnlinePlayer player = null;
-	
-	private Panel panel = null;
-	private boolean playSkip;
-	private boolean legalMove;
-	private Board board;
-	private boolean endGame;
 	private Colors localColor;
-	private Colors colorPlaying;
-	private boolean computedScore;
-	private Action newAction = null;
-	//private boolean ctrlPressed=false;
-	private boolean justSkip;
-
 	
 	public OnlineGo(AbstractOnlinePlayer player, Colors local) {
 		this.player = player;
@@ -37,19 +22,6 @@ public class OnlineGo implements ICore {
 		colorPlaying = Colors.WHITE;
 		legalMove=false;
 		playSkip=false;
-	}
-
-
-	@Override
-	public void init() throws SlickException {
-		panel = new Panel(board);
-		Colors.WHITE.setImg(new Image("images/white_token.png"));
-		Colors.BLACK.setImg(new Image("images/black_token.png"));
-	}
-
-	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException {
-		panel.paintComponent(gc,g);
 	}
 
 	@Override
@@ -84,37 +56,6 @@ public class OnlineGo implements ICore {
 			}
 			return this;
 	}
-	
-	private void nextTurn(Action play) {
-		if(playSkip)
-		{
-			if(endGame&&!computedScore)
-			{
-				board.groupForScore();
-				computedScore=true;
-			}
-			if(justSkip)
-			{
-				endGame=true;
-			}
-			justSkip=true;
-		}
-		else
-		{
-			board.play(play);
-			justSkip=false;
-		}
-		
-		colorPlaying=colorPlaying.oppositeColor();
-		legalMove = false;
-		playSkip = false;
-		newAction=null;
-	}
-	
-	
-	public void setPanel(Panel panel) {
-		this.panel  = panel;
-	}
 
 	@Override
 	public void mouseReleased(int button, int x, int y) {
@@ -132,7 +73,6 @@ public class OnlineGo implements ICore {
 		if ( key == Input.KEY_S && colorPlaying.equals(localColor) ) {
 			playSkip = true;
 		}
-		
 	}
 	
 	@Override

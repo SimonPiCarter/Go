@@ -14,16 +14,16 @@ import engine.Panel;
 public class BasicGo implements ICore {
     
 
-	private Panel panel = null;
-	private boolean playSkip;
-	private boolean legalMove;
-	private Board board;
-	private boolean endGame;
-	private Colors colorPlaying;
-	private boolean computedScore;
-	private Action newAction = null;
-	private boolean ctrlPressed;
-	private boolean justSkip;
+	protected Panel panel = null;
+	protected boolean playSkip;
+	protected boolean legalMove;
+	protected Board board;
+	protected boolean endGame;
+	protected Colors colorPlaying;
+	protected boolean computedScore;
+	protected Action newAction = null;
+	protected boolean ctrlPressed;
+	protected boolean justSkip;
 
 	public BasicGo() {
 		board =new Board(9);
@@ -61,7 +61,7 @@ public class BasicGo implements ICore {
 			return this;
 	}
 	
-	private void nextTurn(Action play) {
+	protected void nextTurn(Action play) {
 		if(playSkip)
 		{
 			if(endGame&&!computedScore)
