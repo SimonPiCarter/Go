@@ -29,9 +29,9 @@ public class BasicGo implements ICore {
 
 	public BasicGo(boolean small) {
 		if ( small ) {
-			board = new Board(9,64);
+			board = new Board(9,76);
 		} else {
-			board = new Board(19,32);
+			board = new Board(19,36);
 		}
 		nextCore = this;
 		this.small = small;

@@ -33,10 +33,10 @@ public class Menu implements ICore {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		ttf.drawString(220+16, 50, "Solo Player", Color.darkGray);
-		ttf.drawString(190+16, 100, "Local Multi Player", Color.darkGray);
-		ttf.drawString(170+16, 150, "Internet Multi Player", Color.darkGray);
-		ttf.drawString(260+16, 200, "Exit", Color.darkGray);
+		ttf.drawString(260+16, 50, "Solo Player", Color.darkGray);
+		ttf.drawString(230+16, 100, "Local Multi Player", Color.darkGray);
+		ttf.drawString(210+16, 150, "Internet Multi Player", Color.darkGray);
+		ttf.drawString(300+16, 200, "Exit", Color.darkGray);
 		
 		g.drawImage(selection, 0, 40+ itemSelected*50);
 	}

@@ -16,9 +16,9 @@ public class MenuInGame extends Menu {
 	
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		ttf.drawString(220+16, 50, "Resume Game", Color.darkGray);
-		ttf.drawString(195+16, 100, "Back to Main Menu", Color.darkGray);
-		ttf.drawString(240+16, 150, "Exit Game", Color.darkGray);
+		ttf.drawString(260+16, 50, "Resume Game", Color.darkGray);
+		ttf.drawString(235+16, 100, "Back to Main Menu", Color.darkGray);
+		ttf.drawString(280+16, 150, "Exit Game", Color.darkGray);
 		
 		g.drawImage(selection, 0, 40+ itemSelected*50);
 	}

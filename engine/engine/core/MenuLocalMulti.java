@@ -16,9 +16,9 @@ public class MenuLocalMulti extends Menu {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		ttf.drawString(220+16, 50, "Small Board (9x9)", Color.darkGray);
-		ttf.drawString(190+16, 100, "Normal Board (19x19)", Color.darkGray);
-		ttf.drawString(260+16, 150, "Back", Color.darkGray);
+		ttf.drawString(260+16, 50, "Small Board (9x9)", Color.darkGray);
+		ttf.drawString(230+16, 100, "Normal Board (19x19)", Color.darkGray);
+		ttf.drawString(300+16, 150, "Back", Color.darkGray);
 		
 		g.drawImage(selection, 0, 40+ itemSelected*50);
 	}
