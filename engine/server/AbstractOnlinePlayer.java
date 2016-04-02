@@ -22,8 +22,12 @@ public abstract class AbstractOnlinePlayer extends Thread {
 	
 	@Override
 	public void run() {
-		while ( true ) {
-			queryAction();
+		try {
+			while ( true ) {
+				queryAction();
+			}
+		} catch (Exception e) {
+			System.out.println("Disconnected!");
 		}
 	}
 	
@@ -41,26 +45,16 @@ public abstract class AbstractOnlinePlayer extends Thread {
 		}
 	}
 	
-	public void queryAction() {		
-		try {
-			if ( input.readLine().equals("action") ) {
-				synchronized (this) {
-					int x = Integer.parseInt(input.readLine());
-					int y = Integer.parseInt(input.readLine());
-					boolean skip = Boolean.parseBoolean(input.readLine());
-					Colors color = Colors.valueOf(input.readLine());
-					act = new Action(x,y,color);
-					act.setSkip(skip);
-				}
-				
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			try {
-				close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+	public void queryAction() throws NumberFormatException, IOException {
+		if ( input.readLine().equals("action") ) {
+			synchronized (this) {
+				int x = Integer.parseInt(input.readLine());
+				int y = Integer.parseInt(input.readLine());
+				boolean skip = Boolean.parseBoolean(input.readLine());
+				Colors color = Colors.valueOf(input.readLine());
+				act = new Action(x,y,color);
+				act.setSkip(skip);
+				System.out.println("Action received : "+act);
 			}
 		}
 	}

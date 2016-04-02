@@ -75,7 +75,12 @@ public class OnlineGo implements ICore {
 			
 			if(playSkip)
 			{
-				nextTurn(new Action());
+				newAction = new Action();
+				if ( localColor.equals(colorPlaying) ) {
+					System.out.println(newAction);
+					player.sendAction(newAction);
+				}
+				nextTurn(newAction);
 			}
 			
 	}
@@ -127,22 +132,10 @@ public class OnlineGo implements ICore {
 		if ( key == Input.KEY_S && colorPlaying.equals(localColor) ) {
 			playSkip = true;
 		}
-		/* Can't replay for now!!
-		if( key == Input.KEY_BACK&&ctrlPressed)
-		{
-			board.replay(-1);
-		}
-		
-		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
-			ctrlPressed = false;
-		}*/
 		
 	}
 	
 	@Override
 	public void keyPressed(int key, char c) {
-		/*if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
-			ctrlPressed = true;
-		}*/
 	}
 }
