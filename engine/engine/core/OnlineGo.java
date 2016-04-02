@@ -5,7 +5,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import engine.Action;
-import engine.Board;
 import engine.Colors;
 import server.AbstractOnlinePlayer;
 
@@ -14,8 +13,8 @@ public class OnlineGo extends BasicGo {
 	private AbstractOnlinePlayer player = null;
 	private Colors localColor;
 	
-	public OnlineGo(AbstractOnlinePlayer player, Colors local) {
-		super();
+	public OnlineGo(boolean small, AbstractOnlinePlayer player, Colors local) {
+		super(small);
 		this.player = player;
 		player.start();
 		localColor = local;
@@ -59,9 +58,9 @@ public class OnlineGo extends BasicGo {
 		if ( button == 0 && colorPlaying.equals(localColor) ) {
 			if(endGame)
 			{
-				newAction = new Action(x/64,y/64,true);
+				newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),true);
 			}
-			else newAction = new Action(x/64,y/64,colorPlaying);
+			else newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),colorPlaying);
 		}
 	}
 

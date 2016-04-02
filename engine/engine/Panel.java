@@ -32,8 +32,8 @@ public class Panel {
 	private void drawStone(GameContainer gc, Graphics g, Cell cell) {
 		g.drawImage(
 				cell.getCellColor().img, 
-				cell.getCoordX()*64, 
-				cell.getCoordY()*64);
+				cell.getCoordX()*board.getPieceSize(), 
+				cell.getCoordY()*board.getPieceSize());
 	}
 
 }

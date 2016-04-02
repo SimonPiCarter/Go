@@ -13,7 +13,7 @@ import engine.Panel;
 
 public class BasicGo implements ICore {
     
-
+	protected boolean small;
 	protected Panel panel = null;
 	protected boolean playSkip;
 	protected boolean legalMove;
@@ -25,17 +25,28 @@ public class BasicGo implements ICore {
 	protected boolean ctrlPressed;
 	protected boolean justSkip;
 
-	public BasicGo() {
-		board =new Board(9);
+	public BasicGo(boolean small) {
+		if ( small ) {
+			board = new Board(9,64);
+		} else {
+			board = new Board(19,32);
+		}
+		this.small = small;
 		colorPlaying = Colors.WHITE;
 		legalMove=false;
 		playSkip=false;
 	}
 	
 	public void init() throws SlickException {
-		panel = new Panel(board, new Image("images/background.png"));
-		Colors.WHITE.setImg(new Image("images/white_token.png"));
-		Colors.BLACK.setImg(new Image("images/black_token.png"));
+		if ( small ) {
+			panel = new Panel(board, new Image("images/background.png"));
+			Colors.WHITE.setImg(new Image("images/white_token.png"));
+			Colors.BLACK.setImg(new Image("images/black_token.png"));
+		} else {
+			panel = new Panel(board, new Image("images/background_19.png"));
+			Colors.WHITE.setImg(new Image("images/white_token_19.png"));
+			Colors.BLACK.setImg(new Image("images/black_token_19.png"));			
+		}
 	}
 
 	@Override
@@ -99,9 +110,9 @@ public class BasicGo implements ICore {
 		if ( button == 0 ) {
 			if(endGame)
 			{
-				newAction = new Action(x/64,y/64,true);
+				newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),true);
 			}
-			else newAction = new Action(x/64,y/64,colorPlaying);
+			else newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),colorPlaying);
 		}
 
 	}

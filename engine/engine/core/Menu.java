@@ -77,7 +77,7 @@ public class Menu implements ICore {
 			case 0:
 				break;
 			case 1:
-				nextCore = new BasicGo();
+				nextCore = new BasicGo(false);
 				break;
 			case 2:
 				//nextCore = new MultiplayerMenu();

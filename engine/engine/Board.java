@@ -6,10 +6,12 @@ import java.util.Arrays;
 
 public class Board implements Cloneable{
 	private final int size;
+	private final int pieceSize;
 	private Cell[][] tabBoard;
 	private ArrayList<Action> playList= new ArrayList<Action>();
-	public Board(int size){
+	public Board(int size, int  pieceSize){
 		this.size=size;
+		this.pieceSize=pieceSize;
 		this.tabBoard= new Cell[this.size][this.size];
 		
 		for ( int x = 0 ; x < this.size ; ++ x ) {
@@ -21,6 +23,7 @@ public class Board implements Cloneable{
 	
 	public Board(Board other){
 		this.size=other.size;
+		this.pieceSize=other.pieceSize;
 		
 		this.tabBoard= new Cell[this.size][this.size];
 		
@@ -352,6 +355,10 @@ public class Board implements Cloneable{
 				
 			}	
 		}
+	}
+
+	public int getPieceSize() {
+		return pieceSize;
 	}
 
 }

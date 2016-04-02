@@ -13,7 +13,7 @@ public class ServerMain {
 
 	public static void main(String[] args) throws SlickException, IOException {
 		
-		new AppGameContainer(new Window(new OnlineGo(new ServerPlayer(),Colors.WHITE), "Go! Server"), 576, 576, false).start();
+		new AppGameContainer(new Window(new OnlineGo(true,new ServerPlayer(),Colors.WHITE), "Go! Server"), 576, 576, false).start();
 		
 	}
 }
