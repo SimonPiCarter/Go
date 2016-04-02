@@ -18,6 +18,7 @@ public class Action {
 	public Action()
 	{
 		skip=true;
+		this.colorPlay = Colors.EMPTY;
 	}
 	
 	public Action(int coordX, int coordY, boolean kill) {
