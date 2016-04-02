@@ -19,7 +19,7 @@ public class Menu implements ICore {
 	
 	private Font font;
 	protected TrueTypeFont ttf;
-	private boolean exit;
+	protected boolean exit;
 	
 	@Override
 	public void init() throws SlickException {

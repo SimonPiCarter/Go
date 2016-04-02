@@ -13,6 +13,8 @@ import engine.Panel;
 
 public class BasicGo implements ICore {
     
+	protected ICore nextCore;
+	
 	protected boolean small;
 	protected Panel panel = null;
 	protected boolean playSkip;
@@ -31,6 +33,7 @@ public class BasicGo implements ICore {
 		} else {
 			board = new Board(19,32);
 		}
+		nextCore = this;
 		this.small = small;
 		colorPlaying = Colors.WHITE;
 		legalMove=false;
@@ -56,20 +59,27 @@ public class BasicGo implements ICore {
 
 	@Override
 	public ICore update(GameContainer arg0, int arg1) throws SlickException {
-			if( newAction != null )
-			{
-				///choix du coup et verif de la légalité
-				legalMove=board.isLegal(newAction);
-				if ( legalMove ) {
-					nextTurn(newAction);
-				}
+
+		if ( nextCore != this ) {
+			nextCore.init();
+			ICore old_nextCore = nextCore;
+			nextCore = this;
+			return old_nextCore;
+		}
+		if( newAction != null )
+		{
+			///choix du coup et verif de la légalité
+			legalMove=board.isLegal(newAction);
+			if ( legalMove ) {
+				nextTurn(newAction);
 			}
-			
-			if(playSkip)
-			{
-				nextTurn(new Action());
-			}
-			return this;
+		}
+		
+		if(playSkip)
+		{
+			nextTurn(new Action());
+		}
+		return this;
 	}
 	
 	protected void nextTurn(Action play) {
@@ -129,6 +139,10 @@ public class BasicGo implements ICore {
 		
 		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
 			ctrlPressed = false;
+		}
+		
+		if ( key == Input.KEY_ESCAPE ) {
+			nextCore = new MenuInGame(this);
 		}
 		
 	}
