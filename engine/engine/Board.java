@@ -240,6 +240,7 @@ public class Board implements Cloneable{
 					if(!this.getCell(x, y).isDone()){
 						ArrayList<Cell> groupList=new ArrayList<Cell>();
 						Colors scoreColor=Colors.EMPTY;
+						boolean validGroup=true;
 						groupList.add(this.getCell(x, y));
 						
 						for(int t=0;t<groupList.size();t++)
@@ -260,7 +261,8 @@ public class Board implements Cloneable{
 								{
 									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.WEST).getCellColor())
 									{
-										break;
+										validGroup=false;
+										
 									}
 									
 								}		
@@ -282,7 +284,8 @@ public class Board implements Cloneable{
 								{
 									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.EAST).getCellColor())
 									{
-										break;
+										validGroup=false;
+										
 									}
 									
 								}		
@@ -304,7 +307,8 @@ public class Board implements Cloneable{
 								{
 									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.SOUTH).getCellColor())
 									{
-										break;
+										validGroup=false;
+										
 									}
 									
 								}		
@@ -326,7 +330,8 @@ public class Board implements Cloneable{
 								{
 									if(scoreColor!=groupList.get(t).cellNearby(this,Directions.NORTH).getCellColor())
 									{
-										break;
+										validGroup=false;
+										
 									}
 									
 								}		
@@ -334,7 +339,10 @@ public class Board implements Cloneable{
 							
 						}
 						
-						scoreColor.scoreUp(groupList.size());
+						if(validGroup)
+						{
+							scoreColor.scoreUp(groupList.size());
+						}
 						for(int t=0;t<groupList.size();t++)
 						{
 							groupList.get(t).setDone(true);
