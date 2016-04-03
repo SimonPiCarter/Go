@@ -8,10 +8,23 @@ import java.net.Socket;
 
 public class ClientPlayer extends AbstractOnlinePlayer {
 	
-	public ClientPlayer(String Server) throws IOException {
-		socket = new Socket(Server, 9090);
-		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		output = new PrintWriter(socket.getOutputStream());
+	private String server;
+	
+	public ClientPlayer(String server) {
+		this.server = server;
+	}
+
+	@Override
+	public void connect() {
+		try {
+			socket = new Socket(server, 9090);
+		
+			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			output = new PrintWriter(socket.getOutputStream());
+		} catch (IOException e) {
+			System.out.println("Could not connect to server "+server+":9090");
+		}
+		setConnected(true);
 	}
 	
 }

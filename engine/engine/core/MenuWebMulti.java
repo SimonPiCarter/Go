@@ -1,7 +1,5 @@
 package engine.core;
 
-import java.io.IOException;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,18 +46,10 @@ public class MenuWebMulti extends Menu {
 		if ( key == Input.KEY_ENTER || key == Input.KEY_SPACE ) {
 			switch (itemSelected ) {
 			case 0:
-				try {
-					nextCore = new OnlineGo(true,new ServerPlayer(),Colors.WHITE);
-				} catch (IOException e) {
-					System.out.println("Failed to host game");
-				}
+				nextCore = new OnlineGo(true,new ServerPlayer(),Colors.WHITE);
 				break;
 			case 1:
-				try {
-					nextCore = new OnlineGo(true,new ClientPlayer("localhost"),Colors.BLACK);
-				} catch (IOException e) {
-					System.out.println("Failed to host game");
-				}
+				nextCore = new OnlineGo(true,new ClientPlayer("localhost"),Colors.BLACK);
 				break;
 			case 2:
 				nextCore = lastCore;

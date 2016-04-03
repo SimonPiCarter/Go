@@ -12,9 +12,17 @@ public abstract class AbstractOnlinePlayer extends Thread {
 	
 	private Action act;
 	
+	private boolean connected;
+	
 	protected Socket socket;
 	protected BufferedReader input;
 	protected PrintWriter output;
+	
+	public AbstractOnlinePlayer() {
+		setConnected(false);
+	}
+	
+	public abstract void connect();
 	
 	public void close() throws IOException {
 		socket.close();
@@ -22,7 +30,11 @@ public abstract class AbstractOnlinePlayer extends Thread {
 	
 	@Override
 	public void run() {
-		try {
+		while (!connected) {
+			connect();
+		}
+		
+		try {			
 			while ( true ) {
 				queryAction();
 			}
@@ -63,5 +75,13 @@ public abstract class AbstractOnlinePlayer extends Thread {
 		synchronized (this) {
 			return act;
 		}
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 }
