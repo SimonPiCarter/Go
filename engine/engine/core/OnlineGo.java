@@ -16,7 +16,6 @@ public class OnlineGo extends BasicGo {
 	public OnlineGo(boolean small, AbstractOnlinePlayer player, Colors local) {
 		super(small);
 		this.player = player;
-		player.start();
 		localColor = local;
 	}
 

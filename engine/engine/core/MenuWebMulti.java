@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 
 import engine.Colors;
 import server.ClientPlayer;
-import server.ServerPlayer;
 
 public class MenuWebMulti extends Menu {
 	
@@ -32,6 +31,7 @@ public class MenuWebMulti extends Menu {
 		if ( nextCore != this && nextCore != lastCore ) {
 			nextCore.init();
 		}
+		
 		return nextCore;
 	}
 
@@ -46,10 +46,12 @@ public class MenuWebMulti extends Menu {
 		if ( key == Input.KEY_ENTER || key == Input.KEY_SPACE ) {
 			switch (itemSelected ) {
 			case 0:
-				nextCore = new OnlineGo(true,new ServerPlayer(),Colors.WHITE);
+				nextCore = new MenuWebMultiHost(this);
 				break;
 			case 1:
-				nextCore = new OnlineGo(true,new ClientPlayer("localhost"),Colors.BLACK);
+				ClientPlayer player = new ClientPlayer("localhost");
+				player.start();
+				nextCore = new OnlineGo(true,player,Colors.BLACK);
 				break;
 			case 2:
 				nextCore = lastCore;

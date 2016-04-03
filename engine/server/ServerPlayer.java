@@ -27,6 +27,7 @@ public class ServerPlayer extends AbstractOnlinePlayer {
 			
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = new PrintWriter(socket.getOutputStream());
+			setConnected(true);
 		} catch (IOException e) {
 			System.out.println("Could not connect to port 9090");
 		}finally {
@@ -38,7 +39,6 @@ public class ServerPlayer extends AbstractOnlinePlayer {
 				}
 			}
 		}
-		setConnected(true);
 	}
 	
 }

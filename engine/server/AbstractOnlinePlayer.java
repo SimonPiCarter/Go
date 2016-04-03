@@ -11,8 +11,9 @@ import engine.Colors;
 public abstract class AbstractOnlinePlayer extends Thread {
 	
 	private Action act;
-	
+
 	private boolean connected;
+	private boolean running;
 	
 	protected Socket socket;
 	protected BufferedReader input;
@@ -20,6 +21,7 @@ public abstract class AbstractOnlinePlayer extends Thread {
 	
 	public AbstractOnlinePlayer() {
 		setConnected(false);
+		setRunning(true);
 	}
 	
 	public abstract void connect();
@@ -30,15 +32,18 @@ public abstract class AbstractOnlinePlayer extends Thread {
 	
 	@Override
 	public void run() {
-		while (!connected) {
+		while (!connected && isRunning()) {
 			connect();
 		}
 		
 		try {			
-			while ( true ) {
+			while ( isRunning() ) {
 				queryAction();
 			}
 		} catch (Exception e) {
+			System.out.println("Disconnected!");
+		}
+		if ( !isRunning() ) {
 			System.out.println("Disconnected!");
 		}
 	}
@@ -77,11 +82,19 @@ public abstract class AbstractOnlinePlayer extends Thread {
 		}
 	}
 
-	public boolean isConnected() {
+	public synchronized boolean isConnected() {
 		return connected;
 	}
 
 	public void setConnected(boolean connected) {
 		this.connected = connected;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
 	}
 }
