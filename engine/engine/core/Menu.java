@@ -80,7 +80,7 @@ public class Menu implements ICore {
 				nextCore = new MenuLocalMulti(this);
 				break;
 			case 2:
-				//nextCore = new MultiplayerMenu();
+				nextCore = new MenuWebMulti(this);
 				break;
 			case 3:
 				exit = true;
