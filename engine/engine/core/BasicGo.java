@@ -127,11 +127,16 @@ public class BasicGo implements ICore {
 	@Override
 	public void mouseReleased(int button, int x, int y) {
 		if ( button == 0 ) {
-			if(endGame&&!computedScore)
-			{
-				newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),true);
+			if (!computedScore) {
+				if(endGame)
+				{
+					newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),true);
+				}
+				else
+				{
+					newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),colorPlaying);
+				}
 			}
-			else newAction = new Action(x/board.getPieceSize(),y/board.getPieceSize(),colorPlaying);
 		}
 
 	}
