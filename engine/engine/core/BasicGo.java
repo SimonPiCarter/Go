@@ -73,8 +73,8 @@ public class BasicGo implements ICore {
 	protected void paint(){
 		ttf.drawString(15, 684+10, "CTRL + Z = Undo", Color.white);
 		ttf.drawString(15, 684+20, "S = Skip", Color.white);
-		ttfB.drawString(300, 684+10, "White = "+Colors.WHITE.getScore(), Color.white);
-		ttfB.drawString(306, 684+30, "Black = "+Colors.BLACK.getScore(), Color.white);
+		ttfB.drawString(300, 684+10, "White = "+(Colors.WHITE.getScore()+0.5), Color.white);
+		ttfB.drawString(306, 684+30, "Black = "+(Colors.BLACK.getScore()+0.5), Color.white);
 	}
 	@Override
 	public ICore update(GameContainer arg0, int arg1) throws SlickException {
@@ -159,6 +159,7 @@ public class BasicGo implements ICore {
 		if( key == Input.KEY_BACK&&ctrlPressed)
 		{
 			board.replay(-1);
+			colorPlaying=colorPlaying.oppositeColor();
 		}
 		
 		if ( key == Input.KEY_LCONTROL|| key == Input.KEY_RCONTROL) {
