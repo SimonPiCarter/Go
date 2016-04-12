@@ -70,7 +70,7 @@ public class Board implements Cloneable{
 				}
 			}
 			Colors.BLACK.setScore(0);
-			Colors.WHITE.setScore(6);
+			Colors.WHITE.setScore(0);
 			ArrayList<Action> tempList =new ArrayList<Action>();
 			tempList=this.playList;
 			this.playList=new ArrayList<Action>();
