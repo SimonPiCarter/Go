@@ -177,13 +177,13 @@ public class Cell {
 		}
 	}
 	
-	public void killCell(Board board)
+	public void killCell(Board board, boolean doScore)
 	{
 		this.cellNearby(board, Directions.SOUTH).survivalTest(board);
 		this.cellNearby(board, Directions.NORTH).survivalTest(board);
 		this.cellNearby(board, Directions.EAST).survivalTest(board);
 		this.cellNearby(board, Directions.WEST).survivalTest(board);
-		board.kill();
+		board.kill(doScore);
 	}
 }
 

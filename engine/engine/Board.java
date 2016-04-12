@@ -54,7 +54,7 @@ public class Board implements Cloneable{
 			int x=act.getCoordX();
 			Colors color= act.getColorPlay();
 			this.setCell(x, y, color);
-			this.getCell(x,y).killCell(this);
+			this.getCell(x,y).killCell(this,true);
 			color.setBoardKo(this.clone());
 		}
 		playList.add(act);
@@ -185,7 +185,7 @@ public class Board implements Cloneable{
 						if(compteur!=0)
 						{
 							boardTemp.getCell(posX,posY).setDead(false);
-							boardTemp.getCell(posX,posY).killCell(boardTemp);
+							boardTemp.getCell(posX,posY).killCell(boardTemp,false);
 							if(color.getBoardKo().koEquals(boardTemp))
 							{
 								return false;
@@ -216,13 +216,15 @@ public class Board implements Cloneable{
 	{
 		return this.size;
 	}
-	public void kill()
+	public void kill(boolean doScore)
 	{
 		for(int x=0;x<this.size;x++){
 			for(int y=0;y<this.size;y++){
 				if(this.tabBoard[x][y].isDead())
 				{
+					if(doScore){
 					this.tabBoard[x][y].getCellColor().oppositeColor().scoreUp(1);
+					}
 					this.tabBoard[x][y].setDead(false);
 					this.tabBoard[x][y].setCellColor(Colors.EMPTY);
 					
