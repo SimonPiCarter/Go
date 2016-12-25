@@ -79,10 +79,12 @@ public class Board implements Cloneable {
 
 	}
 
+	@Override
 	public Board clone() {
 		return new Board(this);
 	}
 
+	@Override
 	public String toString() {// test
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < size; ++i) {
@@ -169,10 +171,10 @@ public class Board implements Cloneable {
 																			// peut
 																			// jouer
 				{
-					if (currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor() == ennemy
-							&& currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor() == ennemy
-							&& currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor() == ennemy
-							&& currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor() == ennemy) {
+					if (color.isEnemy(currentCell.cellNearby(boardTemp, Directions.WEST).getCellColor())
+							&& color.isEnemy(currentCell.cellNearby(boardTemp, Directions.EAST).getCellColor())
+							&& color.isEnemy(currentCell.cellNearby(boardTemp, Directions.SOUTH).getCellColor())
+							&& color.isEnemy(currentCell.cellNearby(boardTemp, Directions.NORTH).getCellColor())) {
 						if (!currentCell.cellNearby(boardTemp, Directions.WEST).survivalTest(boardTemp)) {
 							compteur++;// pour compter si toutes les cases
 										// autour sont toutes vivantes
