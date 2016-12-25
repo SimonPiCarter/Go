@@ -62,6 +62,8 @@ public class BasicGo implements ICore {
 		fontB = new Font("Verdana", Font.BOLD, 20);
 	    ttf = new TrueTypeFont(font, true);
 	    ttfB = new TrueTypeFont(fontB, true);
+	    Colors.WHITE.setScore(0);
+	    Colors.BLACK.setScore(6.5);
 	}
 
 	@Override
@@ -73,8 +75,9 @@ public class BasicGo implements ICore {
 	protected void paint(){
 		ttf.drawString(15, 684+10, "CTRL + Z = Undo", Color.white);
 		ttf.drawString(15, 684+20, "S = Skip", Color.white);
-		ttfB.drawString(300, 684+10, "White = "+(Colors.WHITE.getScore()), Color.white);
-		ttfB.drawString(306, 684+30, "Black = "+(Colors.BLACK.getScore()+6.5), Color.white);
+		ttfB.drawString(520, 680+10, "White = "+(Colors.WHITE.getScore()), Color.white);
+		ttfB.drawString(520+6, 680+30, "Black = "+(Colors.BLACK.getScore()), Color.white);
+		ttfB.drawString(200, 684+10, colorPlaying + "'s turn to play",Color.white);
 	}
 	@Override
 	public ICore update(GameContainer arg0, int arg1) throws SlickException {
