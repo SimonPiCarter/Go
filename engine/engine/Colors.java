@@ -7,12 +7,12 @@ public enum Colors {
 	WHITE,
 	BORDER,
 	EMPTY;
-	int score=0;
+	double score=0;
 	Board boardKo;
 	Image img;
 	public Board getBoardKo(){return boardKo;}
 	public void setBoardKo(Board boar){this.boardKo=boar;}
-	public void scoreUp(int offset){score+=offset;}
+	public void scoreUp(double offset){score+=offset;}
 	public Colors oppositeColor(){
 		
 		if(this==Colors.BLACK)return Colors.WHITE;
@@ -24,10 +24,10 @@ public enum Colors {
 		return other.equals(this.oppositeColor()) || other.equals(BORDER);
 	} 
 	
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 	public Image getImg() {

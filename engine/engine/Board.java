@@ -69,7 +69,7 @@ public class Board implements Cloneable{
 					this.tabBoard[x][y]=new Cell(x,y,Colors.EMPTY);
 				}
 			}
-			Colors.BLACK.setScore(0);
+			Colors.BLACK.setScore(6.5);
 			Colors.WHITE.setScore(0);
 			ArrayList<Action> tempList =new ArrayList<Action>();
 			tempList=this.playList;
@@ -136,6 +136,9 @@ public class Board implements Cloneable{
 		
 		int posX=act.getCoordX();
 		int posY=act.getCoordY();
+		if(posX<0||posX>=this.size||posY<0||posY>=this.size){
+			return false;
+		}
 		Colors color=act.getColorPlay(); 
 		Board boardTemp=this.clone();
 		int compteur=0;
