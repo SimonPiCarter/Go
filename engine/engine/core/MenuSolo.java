@@ -7,31 +7,23 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import engine.Colors;
-import server.ServerPlayer;
+import server.AIPlayer;
 
-public class MenuWebMultiHost extends Menu {
+public class MenuSolo extends Menu {
 
 	protected ICore lastCore;
-
-	private ServerPlayer player;
 
 	private boolean small = true;
 	private boolean white = true;
 
-	public MenuWebMultiHost(ICore lastCore) {
+	public MenuSolo(ICore lastCore) {
 		this.lastCore = lastCore;
 	}
 
 	@Override
 	public void init() throws SlickException {
 		super.init();
-		player = new ServerPlayer();
 	}
-
-	private long elapsedTime = System.currentTimeMillis();
-	private String[] waiting = { "Waiting for player to connect", "Waiting for player to connect.",
-			"Waiting for player to connect..", "Waiting for player to connect..." };
-	private int waitingIndex = 0;
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -46,25 +38,9 @@ public class MenuWebMultiHost extends Menu {
 			ttf.drawString(295 + 16, 100, "Black", Color.darkGray);
 		}
 
-		if (!player.isConnected()) {
-			ttf.drawString(250 + 16, 150, "Create Game", Color.darkGray);
-		} else {
-			ttf.drawString(290 + 16, 150, "Start", Color.darkGray);
-		}
+		ttf.drawString(290 + 16, 150, "Start", Color.darkGray);
 
 		ttf.drawString(300 + 16, 200, "Back", Color.darkGray);
-
-		if (player.isAlive() && !player.isConnected()) {
-			long currentTime = System.currentTimeMillis();
-			if (currentTime - elapsedTime > 1000) {
-				waitingIndex++;
-				if (waitingIndex >= waiting.length) {
-					waitingIndex = 0;
-				}
-				elapsedTime = currentTime;
-			}
-			ttf.drawString(0, 300, waiting[waitingIndex], Color.darkGray);
-		}
 
 		g.drawImage(selection, 0, 40 + itemSelected * 50);
 	}
@@ -100,11 +76,10 @@ public class MenuWebMultiHost extends Menu {
 				white = !white;
 				break;
 			case 2:
-				if (!player.isAlive()) {
-					player.start();
-				} else if (player.isConnected()) {
-					nextCore = new OnlineGo(small, player, white ? Colors.WHITE : Colors.BLACK);
-				}
+				AIPlayer player = new AIPlayer(white ? Colors.BLACK : Colors.WHITE);
+				OnlineGo go = new OnlineGo(small, player, white ? Colors.WHITE : Colors.BLACK);
+				player.setBoard(go.board);
+				nextCore = go;
 				break;
 			case 3:
 				nextCore = lastCore;

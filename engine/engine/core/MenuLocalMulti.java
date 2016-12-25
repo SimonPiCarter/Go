@@ -7,25 +7,25 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class MenuLocalMulti extends Menu {
-	
+
 	protected ICore lastCore;
-	
+
 	public MenuLocalMulti(ICore lastCore) {
 		this.lastCore = lastCore;
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		ttf.drawString(260+16, 50, "Small Board (9x9)", Color.darkGray);
-		ttf.drawString(230+16, 100, "Normal Board (19x19)", Color.darkGray);
-		ttf.drawString(300+16, 150, "Back", Color.darkGray);
-		
-		g.drawImage(selection, 0, 40+ itemSelected*50);
+		ttf.drawString(260 + 16, 50, "Small Board (9x9)", Color.darkGray);
+		ttf.drawString(230 + 16, 100, "Normal Board (19x19)", Color.darkGray);
+		ttf.drawString(300 + 16, 150, "Back", Color.darkGray);
+
+		g.drawImage(selection, 0, 40 + itemSelected * 50);
 	}
 
 	@Override
 	public ICore update(GameContainer arg0, int arg1) throws SlickException {
-		if ( nextCore != this && nextCore != lastCore ) {
+		if (nextCore != this && nextCore != lastCore) {
 			nextCore.init();
 		}
 		return nextCore;
@@ -33,14 +33,14 @@ public class MenuLocalMulti extends Menu {
 
 	@Override
 	public void keyReleased(int key, char c) {
-		if ( key == Input.KEY_UP ) {
-			itemSelected = Math.max(0, itemSelected-1);
+		if (key == Input.KEY_UP) {
+			itemSelected = Math.max(0, itemSelected - 1);
 		}
-		if ( key == Input.KEY_DOWN ) {
-			itemSelected = Math.min(2, itemSelected+1);
+		if (key == Input.KEY_DOWN) {
+			itemSelected = Math.min(2, itemSelected + 1);
 		}
-		if ( key == Input.KEY_ENTER || key == Input.KEY_SPACE ) {
-			switch (itemSelected ) {
+		if (key == Input.KEY_ENTER || key == Input.KEY_SPACE) {
+			switch (itemSelected) {
 			case 0:
 				nextCore = new BasicGo(true);
 				break;

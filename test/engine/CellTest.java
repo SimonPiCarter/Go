@@ -8,7 +8,7 @@ public class CellTest {
 
 	@Test
 	public void testCell() {
-		assertEquals("bla",true,false);
+		assertEquals("bla", true, false);
 	}
 
 	@Test

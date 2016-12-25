@@ -7,14 +7,13 @@ import org.newdawn.slick.SlickException;
 
 import engine.core.ICore;
 
-
 public class Window extends BasicGame {
-	
+
 	private ICore core;
 
 	public Window(ICore core, String name) throws SlickException {
-        super(name);	
-        this.core = core;
+		super(name);
+		this.core = core;
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class Window extends BasicGame {
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		core = core.update(arg0, arg1);
-			
+
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class Window extends BasicGame {
 	public void keyReleased(int key, char c) {
 		core.keyReleased(key, c);
 	}
-	
+
 	@Override
 	public void keyPressed(int key, char c) {
 		core.keyPressed(key, c);
