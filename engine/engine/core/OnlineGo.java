@@ -21,6 +21,7 @@ public class OnlineGo extends BasicGo {
 
 	@Override
 	public ICore update(GameContainer arg0, int arg1) throws SlickException {
+		System.out.println("begin update");
 		if (!localColor.equals(colorPlaying)) {
 			// Ask for server if an action has been played
 			newAction = player.getAction();
@@ -43,6 +44,8 @@ public class OnlineGo extends BasicGo {
 		if (playSkip) {
 			newAction = new Action();
 			if (localColor.equals(colorPlaying)) {
+				newAction.setColorPlay(colorPlaying);
+				newAction.setSkip(true);
 				System.out.println(newAction);
 				player.sendAction(newAction);
 			}

@@ -48,6 +48,7 @@ public class BasicGo implements ICore {
 		playSkip = false;
 	}
 
+	@Override
 	public void init() throws SlickException {
 		if (small) {
 			panel = new Panel(board, new Image("images/background.png"));
@@ -105,7 +106,7 @@ public class BasicGo implements ICore {
 	}
 
 	protected void nextTurn(Action play) {
-		if (playSkip) {
+		if (play.isSkip()) {
 			if (endGame && !computedScore) {
 				board.groupForScore();
 				computedScore = true;

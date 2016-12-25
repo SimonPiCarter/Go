@@ -132,6 +132,9 @@ public class Board implements Cloneable {
 
 		int posX = act.getCoordX();
 		int posY = act.getCoordY();
+		if (act.isSkip()) {
+			return true;
+		}
 		if (posX < 0 || posX >= this.size || posY < 0 || posY >= this.size) {
 			return false;
 		}
@@ -140,7 +143,6 @@ public class Board implements Cloneable {
 		int compteur = 0;
 		Cell currentCell = boardTemp.getCell(posX, posY);
 		currentCell.setCellColor(color);
-
 		if (currentCell.getCellColor() != Colors.WHITE && currentCell.getCellColor() != Colors.BLACK) {
 			return true;
 		}
