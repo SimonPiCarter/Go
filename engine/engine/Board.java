@@ -251,7 +251,7 @@ public class Board implements Cloneable{
 						boolean validGroup=true;
 						groupList.add(this.getCell(x, y));
 						
-						for(int t=0;t<groupList.size();t++)
+						for(int t=0;t<groupList.size()&&validGroup;t++)
 						{
 							if( groupList.get(t).cellNearby(this,Directions.WEST).getCellColor()==Colors.EMPTY&&
 								!groupList.contains(groupList.get(t).cellNearby(this,Directions.WEST)))
